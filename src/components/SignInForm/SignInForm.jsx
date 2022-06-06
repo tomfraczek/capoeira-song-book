@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     signInWithGooglePopup,
     createUserDocumentFromAuth,
@@ -6,6 +7,11 @@ import {
 } from '../../utils/firebase/firebase.utils';
 
 import FormInput from '../FormInput/FormInput';
+import CustomButton, { BUTTON_TYPE_CLASSES } from '../CustomButton/CustomButton';
+
+import GoogleBtn from './assets/google_default.png';
+
+import { GoogleLogInButton, LoginButtonsContainer } from './SignInForm.styles';
 
 const defaultFieldValues = {
     email: '',
@@ -15,6 +21,7 @@ const defaultFieldValues = {
 const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFieldValues);
     const { email, password } = formFields;
+    let navigate = useNavigate();
 
     const resetFormFields = () => {
         setFormFields(defaultFieldValues);
@@ -26,6 +33,7 @@ const SignInForm = () => {
         try {
             const { user } = await signInUserWithEmailAndPassword(email, password);
             resetFormFields();
+            navigate('/songbook');
         } catch (error) {
             switch (error.code) {
                 case 'auth/wrong-password':
@@ -52,33 +60,35 @@ const SignInForm = () => {
     };
 
     return (
-        <>
-            <h1>Already have an account?</h1>
-            <span>Sign In with your email and password</span>
-            <form onSubmit={handleSubmit}>
-                <FormInput
-                    label="Email"
-                    type="email"
-                    required
-                    onChange={handleChange}
-                    name="email"
-                    value={email}
-                />
-                <FormInput
-                    label="Password"
-                    type="password"
-                    required
-                    onChange={handleChange}
-                    name="password"
-                    value={password}
-                />
+        <form onSubmit={handleSubmit}>
+            <FormInput
+                placeholder="Email"
+                autoComplete="false"
+                type="email"
+                required
+                onChange={handleChange}
+                name="email"
+                value={email}
+            />
+            <FormInput
+                placeholder="Password"
+                autoComplete="false"
+                type="password"
+                required
+                onChange={handleChange}
+                name="password"
+                value={password}
+            />
 
-                <button type="submit">Sign In</button>
-                <button type="button" onClick={signInWithGoogle}>
-                    Google sign in
-                </button>
-            </form>
-        </>
+            <LoginButtonsContainer>
+                <CustomButton buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
+                    Log In
+                </CustomButton>
+                <GoogleLogInButton type="button" onClick={signInWithGoogle}>
+                    <img src={GoogleBtn} />
+                </GoogleLogInButton>
+            </LoginButtonsContainer>
+        </form>
     );
 };
 

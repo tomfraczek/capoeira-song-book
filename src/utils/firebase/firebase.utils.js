@@ -8,7 +8,18 @@ import {
     signOut,
     onAuthStateChanged,
 } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+    getFirestore,
+    doc,
+    docs,
+    getDoc,
+    setDoc,
+    collection,
+    writeBatch,
+    addDoc,
+    query,
+    getDocs,
+} from 'firebase/firestore';
 
 // Firebase Config
 const firebaseConfig = {
@@ -34,7 +45,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 
 export const db = getFirestore();
 
-// Create a seperate user record in the db
+// export methods
 export const createUserDocumentFromAuth = async (userAuth, aditionalInformation = {}) => {
     const userDocRef = doc(db, 'users', userAuth.uid);
     const userSnapshot = await getDoc(userDocRef);
@@ -72,4 +83,29 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback)
+export const onAuthStateChangedListener = callback => onAuthStateChanged(auth, callback);
+
+export const addSongToDb = async objectToAdd => {
+    console.log('Song added to dasdasd');
+    try {
+        const newCityRef = doc(collection(db, "songs"));
+
+        await addDoc(collection(db, 'songs'), {
+            ...objectToAdd,
+            id: newCityRef.id
+        });
+        console.log('Song added to db');
+    } catch (error) {
+        console.log('error creating the document', error);
+    }
+};
+
+export const getCategoriesAndDocuments = async () => {
+    const collectionRef = collection(db, 'songs');
+    const q = query(collectionRef);
+    const querySnapshot = await getDocs(q);
+
+    const categoriesMap = querySnapshot.docs.map(doc => doc.data());
+
+    return categoriesMap;
+};

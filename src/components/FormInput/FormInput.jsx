@@ -1,11 +1,10 @@
-const FormInput = ({ label, ...otherProps }) => {
+import { OutlinedInput } from '@mui/material';
+import { StyledInput } from './FormInput.styles';
+
+const FormInput = ({ ...props }) => {
     return (
         <div className="group">
-            {label && (
-                <label className={`${otherProps.value.length && 'shrink'} form-input-label`}>{label}</label>
-            )}
-
-            <input className="form-input" {...otherProps} />
+            <StyledInput {...props} />
         </div>
     );
 };
