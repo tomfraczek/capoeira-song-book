@@ -1,31 +1,44 @@
-import { useContext } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import { UserContext } from './context/user.context';
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from './utils/firebase/firebase.utils';
+import { setCurrentUser } from './store/user/user.action';
 
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import Authentication from './pages/Authentication';
 import Songbook from './pages/Songbook/Songbook'; //WTF?! :O -.-'
 import AddSong from './pages/AddSong';
-import Profile from './pages/Profile/Profile';
-import Song from './pages/Song/Song';
+import Profile from './pages/Profile/Profile';//WTF?! :O -.-'
+import Song from './pages/Song/Song';//WTF?! :O -.-'
 
 const App = () => {
-    const { currentUser } = useContext(UserContext);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChangedListener(user => {
+            if (user) {
+                createUserDocumentFromAuth(user);
+            }
+            dispatch(setCurrentUser(user));
+        });
+
+        return unsubscribe;
+    }, []);
 
     return (
-        <div className='AppContainer'>
+        <div className="AppContainer">
             <Routes>
-            <Route path="/" element={<Navigation />}>
-                <Route index element={currentUser ? <Songbook /> : <Home />} />
-                <Route path='songbook' element={<Songbook />} />
-                <Route path="auth" element={<Authentication />} />
-                <Route path="add-song" element={<AddSong />} />
-                <Route path="profile" element={<Profile />} />
-                <Route path="songbook/song/:id" element={<Song />} />
-            </Route>
-        </Routes>
+                <Route path="/" element={<Navigation />}>
+                    <Route index element={<Home />} />
+                    <Route path="songbook" element={<Songbook />} />
+                    <Route path="auth" element={<Authentication />} />
+                    <Route path="add-song" element={<AddSong />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="songbook/song/:id" element={<Song />} />
+                </Route>
+            </Routes>
         </div>
     );
 };

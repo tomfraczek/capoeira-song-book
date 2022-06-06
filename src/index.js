@@ -1,22 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import { Provider } from 'react-redux';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './context/user.context';
 import { SongsProvider } from './context/songs.context';
+import { store } from './store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <UserProvider>
-                <SongsProvider>
-                    <App />
-                </SongsProvider>
-            </UserProvider>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                    <SongsProvider>
+                        <App />
+                    </SongsProvider>
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>,
 );
 
