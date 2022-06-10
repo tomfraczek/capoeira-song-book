@@ -1,15 +1,15 @@
 import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 
-import { UserContext } from '../../context/user.context';
-import { signOutUser } from '../../utils/firebase/firebase.utils';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 import AccountMenu from '../AccountMenu';
 
-import { NavigationContainer, NavigationLinks, LogoContainer, LogoutButton } from './Navigation.styles';
+import { NavigationContainer, NavigationLinks, LogoContainer } from './Navigation.styles';
 
 const Navigation = () => {
-    const { currentUser } = useContext(UserContext);
+    const currentUser = useSelector(selectCurrentUser);
 
     return (
         <>

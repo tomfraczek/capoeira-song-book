@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { onAuthStateChangedListener, createUserDocumentFromAuth } from './utils/firebase/firebase.utils';
+import { onAuthStateChangedListener, createUserDocumentFromAuth, getSongsAndDocuments } from './utils/firebase/firebase.utils';
 import { setCurrentUser } from './store/user/user.action';
+import { setSongs } from './store/songs/songs.action';
 
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
@@ -24,8 +25,16 @@ const App = () => {
             dispatch(setCurrentUser(user));
         });
 
+        const getSongsMap = async () => {
+            const songsMap = await getSongsAndDocuments();
+            dispatch(setSongs(songsMap));
+        };
+
+        getSongsMap();
+
         return unsubscribe;
     }, []);
+
 
     return (
         <div className="AppContainer">

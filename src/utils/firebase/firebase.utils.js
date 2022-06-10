@@ -100,12 +100,12 @@ export const addSongToDb = async objectToAdd => {
     }
 };
 
-export const getCategoriesAndDocuments = async () => {
+export const getSongsAndDocuments = async () => {
     const collectionRef = collection(db, 'songs');
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q);
 
-    const categoriesMap = querySnapshot.docs.map(doc => doc.data());
+    const songsMap = querySnapshot.docs.map(doc => doc.data());
 
-    return categoriesMap;
+    return songsMap;
 };

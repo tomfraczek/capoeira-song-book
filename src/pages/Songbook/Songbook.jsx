@@ -1,6 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { SongsContext } from '../../context/songs.context';
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
+import { getSongsAndDocuments } from '../../utils/firebase/firebase.utils';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setSongs } from '../../store/songs/songs.action';
+import { selectSongs } from '../../store/songs/songs.selector';
 
 import SongPreview from '../../components/SongCardPreview/SongCardPreview';
 import SearchForm from '../../components/SearchForm/SearchForm';
@@ -8,23 +13,37 @@ import SearchForm from '../../components/SearchForm/SearchForm';
 import { SongbookContainer } from './Songbook.styles';
 
 const Songbook = () => {
-    const { songs } = useContext(SongsContext);
+    const songs = useSelector(selectSongs);
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        getCategoriesAndDocuments();
+        getSongsAndDocuments();
     }, []);
+
+    // useEffect(() => {
+    //     if (songs.data) {
+    //         console.log(
+    //             songs.data.map(song =>
+    //                 Object.values(song.lyrics).some(l => l.toString().toLowerCase().includes('historia')),
+    //             ),
+    //         );
+    //     }
+    // }, [songs]);
 
     useEffect(() => {
         if (query === '') {
-            setResults(songs);
+            setResults(songs.data);
         } else {
-            const result = songs
+            const result = songs.data
                 .filter(
                     song =>
                         song.title?.toLowerCase().includes(query.toLowerCase()) ||
-                        Object.values(song.lyrics)?.some(l => l.toLowerCase().includes(query.toLowerCase())),
+                        Object.values(song.lyrics)?.some(l =>
+                            l.toString().toLowerCase().includes(query.toLowerCase()),
+                        ),
                 )
                 .map(r => r);
             setResults(result);
@@ -32,7 +51,7 @@ const Songbook = () => {
     }, [query, songs]);
 
     const DisplayResults = () => {
-        if (results.length) {
+        if (results && results.length) {
             return results.map((result, i) => <SongPreview key={i} song={result} />);
         }
 
@@ -50,3 +69,13 @@ const Songbook = () => {
 };
 
 export default Songbook;
+
+// console.log(
+//     songs.data
+//         .filter(
+//             song => Object.values(song.lyrics)?.some(l => l),
+//             //  ||
+//             // Object.values(song.lyrics)?.some(l => l.toLowerCase().includes(query.toLowerCase())),
+//         )
+//         .map(r => r.lyrics),
+// );

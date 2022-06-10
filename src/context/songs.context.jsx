@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer } from 'react';
 
-import { getCategoriesAndDocuments } from '../utils/firebase/firebase.utils';
+import { getSongsAndDocuments } from '../utils/firebase/firebase.utils';
 import { createAction } from '../utils/reducer/reducer.utils';
 
 export const SongsContext = createContext({
@@ -38,7 +38,7 @@ export const SongsProvider = ({ children }) => {
 
     useEffect(() => {
         const getSongsMap = async () => {
-            const songsMap = await getCategoriesAndDocuments();
+            const songsMap = await getSongsAndDocuments();
             setSongs(songsMap);
         };
 

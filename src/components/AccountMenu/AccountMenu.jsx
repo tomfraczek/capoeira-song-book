@@ -18,14 +18,19 @@ import { signOutUser } from '../../utils/firebase/firebase.utils';
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = useState(null);
+
     let navigate = useNavigate();
+
     const open = Boolean(anchorEl);
+
     const handleClick = event => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
+
     return (
         <>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>

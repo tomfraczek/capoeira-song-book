@@ -19,7 +19,7 @@ const SongPreview = ({ song, bold }) => {
             <CategoryBadge>{category}</CategoryBadge>
             <LyricsParagraph>{lyrics['lyrics-1-a']}</LyricsParagraph>
             <LyricsParagraph>{lyrics['lyrics-1-b']}</LyricsParagraph>
-            <Link to={`songbook/song/${id}`}>Read More</Link>
+            <Link to={`song/${id}`}>Read More</Link>
         </CardContainer>
     );
 };
