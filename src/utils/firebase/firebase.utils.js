@@ -7,6 +7,7 @@ import {
     signInWithEmailAndPassword,
     signOut,
     onAuthStateChanged,
+    updateProfile,
 } from 'firebase/auth';
 import {
     getFirestore,
@@ -19,6 +20,8 @@ import {
     addDoc,
     query,
     getDocs,
+    Firestore,
+    updateDoc,
 } from 'firebase/firestore';
 
 // Firebase Config
@@ -42,6 +45,7 @@ googleProvider.setCustomParameters({
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+export const currentUser = auth.currentUser;
 
 export const db = getFirestore();
 
@@ -51,14 +55,15 @@ export const createUserDocumentFromAuth = async (userAuth, aditionalInformation 
     const userSnapshot = await getDoc(userDocRef);
 
     if (!userSnapshot.exists()) {
-        const { displayName, email } = userAuth;
+        const { email } = userAuth;
         const createdAt = new Date();
+        const uid = userDocRef.id;
 
         try {
             await setDoc(userDocRef, {
-                displayName,
                 email,
                 createdAt,
+                uid,
                 ...aditionalInformation,
             });
         } catch (error) {
@@ -86,18 +91,23 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = callback => onAuthStateChanged(auth, callback);
 
 export const addSongToDb = async objectToAdd => {
-    console.log('Song added to dasdasd');
     try {
-        const newCityRef = doc(collection(db, "songs"));
+        const newCityRef = doc(collection(db, 'songs'));
 
         await addDoc(collection(db, 'songs'), {
             ...objectToAdd,
-            id: newCityRef.id
+            id: newCityRef.id,
         });
         console.log('Song added to db');
     } catch (error) {
         console.log('error creating the document', error);
     }
+};
+
+export const updateUser = async (id, updates) => {
+    const userRef = doc(db, 'users', id);
+
+    await updateDoc(userRef, updates);
 };
 
 export const getSongsAndDocuments = async () => {
@@ -108,4 +118,22 @@ export const getSongsAndDocuments = async () => {
     const songsMap = querySnapshot.docs.map(doc => doc.data());
 
     return songsMap;
+};
+
+export const getCurrentUser = async () => {
+    onAuthStateChanged(auth, user => {
+        if (user) {
+            console.log(user)
+            return user;
+        }
+        return;
+    });
+};
+
+export const updateUserProfile = async data => {
+    try {
+        await updateProfile(auth.currentUser, data);
+    } catch (error) {
+        console.log('An Error Ocured in updateUserProfile methoid ', error);
+    }
 };

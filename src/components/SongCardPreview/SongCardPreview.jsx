@@ -5,7 +5,7 @@ import CategoryBadge from '../CategoryBadge/CategoryBadge';
 
 import { CardTitile, CardContainer, LyricsParagraph } from './SongCardPreview.styles';
 
-const SongPreview = ({ song, bold }) => {
+const SongCardPreview = ({ song, bold }) => {
     const { category, createdAt, lyrics, title } = song;
 
     // maybe for later use
@@ -15,7 +15,10 @@ const SongPreview = ({ song, bold }) => {
     const { id } = song;
     return (
         <CardContainer>
-            <CardTitile>{title}</CardTitile>
+            <Link to={`song/${id}`}>
+                <CardTitile>{title}</CardTitile>
+            </Link>
+
             <CategoryBadge>{category}</CategoryBadge>
             <LyricsParagraph>{lyrics['lyrics-1-a']}</LyricsParagraph>
             <LyricsParagraph>{lyrics['lyrics-1-b']}</LyricsParagraph>
@@ -24,4 +27,4 @@ const SongPreview = ({ song, bold }) => {
     );
 };
 
-export default SongPreview;
+export default SongCardPreview;

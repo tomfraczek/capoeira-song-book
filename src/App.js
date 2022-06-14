@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { onAuthStateChangedListener, createUserDocumentFromAuth, getSongsAndDocuments } from './utils/firebase/firebase.utils';
+import {
+    onAuthStateChangedListener,
+    createUserDocumentFromAuth,
+    getSongsAndDocuments,
+} from './utils/firebase/firebase.utils';
 import { setCurrentUser } from './store/user/user.action';
 import { setSongs } from './store/songs/songs.action';
 
@@ -11,8 +15,8 @@ import Home from './pages/Home';
 import Authentication from './pages/Authentication';
 import Songbook from './pages/Songbook/Songbook'; //WTF?! :O -.-'
 import AddSong from './pages/AddSong';
-import Profile from './pages/Profile/Profile';//WTF?! :O -.-'
-import Song from './pages/Song/Song';//WTF?! :O -.-'
+import Profile from './pages/Profile/Profile'; //WTF?! :O -.-'
+import Song from './pages/Song/Song'; //WTF?! :O -.-'
 
 const App = () => {
     const dispatch = useDispatch();
@@ -22,7 +26,9 @@ const App = () => {
             if (user) {
                 createUserDocumentFromAuth(user);
             }
-            dispatch(setCurrentUser(user));
+            const { displayName, email, uid, metadata } = user;
+            console.log(user)
+            dispatch(setCurrentUser({ displayName, email, uid, metadata }));
         });
 
         const getSongsMap = async () => {
@@ -35,7 +41,6 @@ const App = () => {
         return unsubscribe;
     }, []);
 
-
     return (
         <div className="AppContainer">
             <Routes>
@@ -44,7 +49,7 @@ const App = () => {
                     <Route path="songbook" element={<Songbook />} />
                     <Route path="auth" element={<Authentication />} />
                     <Route path="add-song" element={<AddSong />} />
-                    <Route path="profile" element={<Profile />} />
+                    <Route path="profile/*" element={<Profile />} />
                     <Route path="songbook/song/:id" element={<Song />} />
                 </Route>
             </Routes>

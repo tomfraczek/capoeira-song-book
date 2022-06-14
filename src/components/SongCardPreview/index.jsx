@@ -1,1 +1,1 @@
-export { default } from './SongPreview';
+export { default } from './SongCardPreview';

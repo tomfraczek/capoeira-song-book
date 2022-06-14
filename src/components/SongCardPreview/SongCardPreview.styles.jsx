@@ -23,6 +23,7 @@ export const CardTitile = styled.p`
 `;
 
 export const LyricsParagraph = styled.p`
+    white-space: break-spaces;
     word-break: break-all;
     color: #416a59;
 `;

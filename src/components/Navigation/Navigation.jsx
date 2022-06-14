@@ -1,8 +1,9 @@
-import { useContext } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 
 import { selectCurrentUser } from '../../store/user/user.selector';
+import { getCurrentUser } from '../../utils/firebase/firebase.utils';
 
 import AccountMenu from '../AccountMenu';
 
@@ -10,6 +11,10 @@ import { NavigationContainer, NavigationLinks, LogoContainer } from './Navigatio
 
 const Navigation = () => {
     const currentUser = useSelector(selectCurrentUser);
+
+    useEffect(() => {
+        console.log(currentUser);
+    }, [currentUser]);
 
     return (
         <>
@@ -21,7 +26,7 @@ const Navigation = () => {
                     <Link to="/">Home</Link>
                     <Link to="/songbook">Songbook</Link>
 
-                    {currentUser ? <AccountMenu /> : <Link to="/auth">Sign Up</Link>}
+                    {currentUser ? <AccountMenu user={currentUser} /> : <Link to="/auth">Sign Up</Link>}
                 </NavigationLinks>
             </NavigationContainer>
             <Outlet />

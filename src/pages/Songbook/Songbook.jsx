@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import { SongsContext } from '../../context/songs.context';
 import { getSongsAndDocuments } from '../../utils/firebase/firebase.utils';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSongs } from '../../store/songs/songs.action';
 import { selectSongs } from '../../store/songs/songs.selector';
 
-import SongPreview from '../../components/SongCardPreview/SongCardPreview';
+import SongCardPreview from '../../components/SongCardPreview/SongCardPreview';
 import SearchForm from '../../components/SearchForm/SearchForm';
 
 import { SongbookContainer } from './Songbook.styles';
@@ -52,7 +51,7 @@ const Songbook = () => {
 
     const DisplayResults = () => {
         if (results && results.length) {
-            return results.map((result, i) => <SongPreview key={i} song={result} />);
+            return results.map((result, i) => <SongCardPreview key={i} song={result} />);
         }
 
         return <p>No results found</p>;

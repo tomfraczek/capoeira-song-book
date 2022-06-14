@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { addSongToDb } from '../../utils/firebase/firebase.utils';
-import remove from './assets/remove.png';
+import { useSelector } from 'react-redux';
 
 import {
     FormGroup,
@@ -13,7 +12,11 @@ import {
     Radio,
 } from '@mui/material';
 
-import CustomSelectInput from '../../components/CustomSelectInput/CustomSelectInput';
+import { addSongToDb, updateUser, getCurrentUser } from '../../utils/firebase/firebase.utils';
+
+import { selectCurrentUser } from '../../store/user/user.selector';
+
+import PreviewForm from '../../components/PreviewForm/PreviewForm';
 
 import {
     Title,
@@ -29,12 +32,15 @@ import {
     CheckboxContainer,
     ExampleContainer,
 } from './AddSong.styles';
-import PreviewForm from '../../components/PreviewForm/PreviewForm';
+
+import remove from './assets/remove.png';
 
 const AddSong = () => {
     const [textInputs, setTextInputs] = useState(['lyrics-1']);
     const [preview, setPreview] = useState(false);
+    const [userId, setUserId] = useState('');
     const [autoChorus, setAutoChorus] = useState(false);
+    const currentUser = useSelector(selectCurrentUser);
 
     const {
         register,
@@ -50,6 +56,10 @@ const AddSong = () => {
         },
     });
 
+    useEffect(() => {
+        console.log(currentUser.uid);
+    }, [currentUser]);
+
     const onSubmit = data => {
         const { title, category, youtube, ...rest } = data;
         const createdAt = new Date();
@@ -59,6 +69,7 @@ const AddSong = () => {
             createdAt,
             youtube,
             autoComplete: autoChorus,
+            addedBy: userId,
             lyrics: { ...rest },
         };
         addSongToDb(songToAdd, category);
