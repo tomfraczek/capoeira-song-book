@@ -68,13 +68,3 @@ const Songbook = () => {
 };
 
 export default Songbook;
-
-// console.log(
-//     songs.data
-//         .filter(
-//             song => Object.values(song.lyrics)?.some(l => l),
-//             //  ||
-//             // Object.values(song.lyrics)?.some(l => l.toLowerCase().includes(query.toLowerCase())),
-//         )
-//         .map(r => r.lyrics),
-// );

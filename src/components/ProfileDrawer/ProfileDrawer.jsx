@@ -29,8 +29,8 @@ const DrawerMenu = [
         icon: <DashboardIcon />,
     },
     {
-        name: 'Saved Songs',
-        path: 'saved-songs',
+        name: 'Favorites',
+        path: 'favorites',
         icon: <SaveAltIcon />,
     },
     {

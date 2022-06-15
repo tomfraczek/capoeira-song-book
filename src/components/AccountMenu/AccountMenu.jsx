@@ -95,11 +95,11 @@ const AccountMenu = ({ user }) => {
                             <Avatar /> Profile
                         </MenuItem>
                         <Divider />
-                        <MenuItem>
+                        <MenuItem onClick={() => navigate('/add-song')}>
                             <ListItemIcon>
                                 <PersonAdd fontSize="small" />
                             </ListItemIcon>
-                            Add another account
+                            Add a new song
                         </MenuItem>
                         <MenuItem onClick={signOutUser}>
                             <ListItemIcon>

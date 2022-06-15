@@ -16,7 +16,7 @@ const Profile = () => (
         <Routes>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="saved-songs" element={<SavedSongs />} />
+            <Route path="favorites" element={<SavedSongs />} />
             <Route path="my-songs" element={<MySongs />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="edit-profile" element={<EditProfile />} />
