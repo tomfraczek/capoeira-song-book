@@ -19,6 +19,7 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const drawerWidth = 240;
 
@@ -47,6 +48,14 @@ const DrawerMenu = [
         name: 'Edit Profile',
         path: 'edit-profile',
         icon: <AccountBoxIcon />,
+    },
+];
+
+const DrawerSubmenu = [
+    {
+        name: 'Add New Song',
+        path: '/add-song',
+        icon: <AddCircleIcon />,
     },
 ];
 
@@ -80,17 +89,21 @@ const ProfileDrawer = () => {
                         </Link>
                     ))}
                 </List>
+
                 <Divider />
-                {/* <List>
-                    {['Edit Profile', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
+
+                <List>
+                    {DrawerSubmenu.map(({ name, path, icon }, i) => (
+                        <Link to={path} key={i}>
+                            <ListItem key={name} disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon>{icon}</ListItemIcon>
+                                    <ListItemText primary={name} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
                     ))}
-                </List> */}
+                </List>
             </Drawer>
         </Box>
     );

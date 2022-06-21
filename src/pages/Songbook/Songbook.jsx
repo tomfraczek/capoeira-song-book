@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setSongs } from '../../store/songs/songs.action';
 import { selectSongs } from '../../store/songs/songs.selector';
+import { fetchSongsAsync } from '../../store/songs/songs.action';
 
 import SongCardPreview from '../../components/SongCardPreview/SongCardPreview';
 import SearchForm from '../../components/SearchForm/SearchForm';
@@ -19,18 +20,12 @@ const Songbook = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        getSongsAndDocuments();
+        dispatch(fetchSongsAsync());
     }, []);
 
-    // useEffect(() => {
-    //     if (songs.data) {
-    //         console.log(
-    //             songs.data.map(song =>
-    //                 Object.values(song.lyrics).some(l => l.toString().toLowerCase().includes('historia')),
-    //             ),
-    //         );
-    //     }
-    // }, [songs]);
+    useEffect(() => {
+        console.log(songs);
+    }, [songs]);
 
     useEffect(() => {
         if (query === '') {

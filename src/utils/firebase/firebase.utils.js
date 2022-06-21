@@ -115,9 +115,10 @@ export const getSongsAndDocuments = async () => {
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q);
 
-    const songsMap = querySnapshot.docs.map(doc => doc.data());
+    const songs = querySnapshot.docs.map(doc => doc.data());
+    console.log(songs);
 
-    return songsMap;
+    return songs;
 };
 
 export const getCurrentUser = async () => {

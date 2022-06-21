@@ -116,3 +116,21 @@ export const ExampleContainer = styled.div`
         font-style: italic;
     }
 `;
+
+export const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+
+    svg {
+        color: #a9c25d;
+        height: 40px;
+        width: 40px;
+        position: relative;
+        top: -15px;
+
+        &:hover {
+            cursor: pointer;
+            color: #73a24e;
+        }
+    }
+`;

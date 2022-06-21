@@ -12,7 +12,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 import FormInput from '../../../components/FormInput/FormInput';
-import CustomButton from '../../../components/CustomButton/CustomButton';
+import CustomButton, { BUTTON_TYPE_CLASSES } from '../../../components/CustomButton/CustomButton';
 
 const defaultFieldValues = {
     displayName: '',
@@ -77,7 +77,9 @@ const EditiProfile = () => {
                     name="email"
                     value={email}
                 />
-                <CustomButton type="submit">Update</CustomButton>
+                <CustomButton buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
+                    Update
+                </CustomButton>
             </form>
         </>
     );

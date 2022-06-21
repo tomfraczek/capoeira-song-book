@@ -8,7 +8,7 @@ import {
     getSongsAndDocuments,
 } from './utils/firebase/firebase.utils';
 import { setCurrentUser } from './store/user/user.action';
-import { setSongs } from './store/songs/songs.action';
+import { fetchSongsAsync } from './store/songs/songs.action';
 
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
@@ -27,16 +27,9 @@ const App = () => {
                 createUserDocumentFromAuth(user);
             }
             const { displayName, email, uid, metadata } = user;
-            console.log(user)
             dispatch(setCurrentUser({ displayName, email, uid, metadata }));
         });
 
-        const getSongsMap = async () => {
-            const songsMap = await getSongsAndDocuments();
-            dispatch(setSongs(songsMap));
-        };
-
-        getSongsMap();
 
         return unsubscribe;
     }, []);

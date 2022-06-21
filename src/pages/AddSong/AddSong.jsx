@@ -16,7 +16,12 @@ import { addSongToDb, updateUser, getCurrentUser } from '../../utils/firebase/fi
 
 import { selectCurrentUser } from '../../store/user/user.selector';
 
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+
 import PreviewForm from '../../components/PreviewForm/PreviewForm';
+import CustomButton, { BUTTON_TYPE_CLASSES } from '../../components/CustomButton/CustomButton';
+
+import remove from './assets/remove.png';
 
 import {
     Title,
@@ -31,9 +36,8 @@ import {
     HeaderContainer,
     CheckboxContainer,
     ExampleContainer,
+    ButtonContainer,
 } from './AddSong.styles';
-
-import remove from './assets/remove.png';
 
 const AddSong = () => {
     const [textInputs, setTextInputs] = useState(['lyrics-1']);
@@ -55,10 +59,6 @@ const AddSong = () => {
             category: '',
         },
     });
-
-    useEffect(() => {
-        console.log(currentUser.uid);
-    }, [currentUser]);
 
     const onSubmit = data => {
         const { title, category, youtube, ...rest } = data;
@@ -109,10 +109,6 @@ const AddSong = () => {
         <>
             <HeaderContainer>
                 <Header>Add a song</Header>
-                <CheckboxContainer>
-                    <label htmlFor="previev">Preview</label>
-                    <input type="checkbox" name="previev" checked={preview} onChange={handlePreviewChange} />
-                </CheckboxContainer>
             </HeaderContainer>
             {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
             <AddSongContainer>
@@ -177,6 +173,15 @@ const AddSong = () => {
                             )}
                         </LyricsContainer>
                     ))}
+                    <ButtonContainer>
+                        {/* <CustomButton
+                            buttonType={BUTTON_TYPE_CLASSES.light}
+                            type="button"
+                            
+                        > */}
+                        <AddCircleIcon onClick={addTextInput} />
+                        {/* </CustomButton> */}
+                    </ButtonContainer>
 
                     {autoChorus && (
                         <LyricsContainer>
@@ -194,6 +199,15 @@ const AddSong = () => {
                         />
                         <label htmlFor="chorus">Auto Complete</label>
                     </CheckboxContainer>
+                    <CheckboxContainer>
+                        <input
+                            type="checkbox"
+                            name="previev"
+                            checked={preview}
+                            onChange={handlePreviewChange}
+                        />
+                        <label htmlFor="previev">Live Preview</label>
+                    </CheckboxContainer>
 
                     <TitleContainer>
                         <FormLabel component="legend">YouTube Video URL or ID:</FormLabel>
@@ -208,11 +222,16 @@ const AddSong = () => {
                     {/* include validation with required or other standard HTML validation rules */}
                     {/* errors will return when field validation fails  */}
                     {errors.exampleRequired && <span>This field is required</span>}
-                    <button type="button" onClick={addTextInput}>
-                        Add text
-                    </button>
 
-                    <input type="submit" />
+                    <ButtonContainer>
+                        <CustomButton
+                            type="submit"
+                            buttonType={BUTTON_TYPE_CLASSES.base}
+                            onClick={addTextInput}
+                        >
+                            Submit
+                        </CustomButton>
+                    </ButtonContainer>
                 </AddSongForm>
 
                 {preview && <PreviewForm textInputs={textInputs} watch={watch} autoChorus={autoChorus} />}

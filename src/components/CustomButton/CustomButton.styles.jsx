@@ -11,7 +11,7 @@ export const BaseButton = styled.button`
     &:hover {
         cursor: pointer;
         color: #fff;
-        border: 1px solid #a9c25d;
+        // border: 1px solid #a9c25d;
         background-color: #73a24e;
     }
 `;
@@ -21,7 +21,9 @@ export const LightButton = styled(BaseButton)`
 
     &:hover {
         color: #fff;
-        border: 1px solid #a9c25d;
+        // border: 1px solid #a9c25d;
         background-color: #73a24e;
     }
 `;
+
+export const ButtonContainer = styled.div``;
