@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 
 import { selectCurrentUser } from '../../store/user/user.selector';
-import { getCurrentUser } from '../../utils/firebase/firebase.utils';
 
 import AccountMenu from '../AccountMenu';
 
@@ -11,10 +10,6 @@ import { NavigationContainer, NavigationLinks, LogoContainer } from './Navigatio
 
 const Navigation = () => {
     const currentUser = useSelector(selectCurrentUser);
-
-    useEffect(() => {
-        console.log(currentUser);
-    }, [currentUser]);
 
     return (
         <>

@@ -116,7 +116,6 @@ export const getSongsAndDocuments = async () => {
     const querySnapshot = await getDocs(q);
 
     const songs = querySnapshot.docs.map(doc => doc.data());
-    console.log(songs);
 
     return songs;
 };
@@ -124,7 +123,6 @@ export const getSongsAndDocuments = async () => {
 export const getCurrentUser = async () => {
     onAuthStateChanged(auth, user => {
         if (user) {
-            console.log(user)
             return user;
         }
         return;
@@ -137,4 +135,14 @@ export const updateUserProfile = async data => {
     } catch (error) {
         console.log('An Error Ocured in updateUserProfile methoid ', error);
     }
+};
+
+export const getUsersFromDb = async () => {
+    const collectionRef = collection(db, 'users');
+    const q = query(collectionRef);
+    const querySnapshot = await getDocs(q);
+
+    const users = querySnapshot.docs.map(doc => doc.data());
+
+    return users;
 };

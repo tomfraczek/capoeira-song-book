@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import { getSongsAndDocuments } from '../../utils/firebase/firebase.utils';
+import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setSongs } from '../../store/songs/songs.action';
 import { selectSongs } from '../../store/songs/songs.selector';
+import { selectCurrentUser } from '../../store/user/user.selector';
 import { fetchSongsAsync } from '../../store/songs/songs.action';
 
 import SongCardPreview from '../../components/SongCardPreview/SongCardPreview';
@@ -14,6 +13,7 @@ import { SongbookContainer } from './Songbook.styles';
 
 const Songbook = () => {
     const songs = useSelector(selectSongs);
+    const currentUser = useSelector(selectCurrentUser);
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
 
@@ -22,10 +22,6 @@ const Songbook = () => {
     useEffect(() => {
         dispatch(fetchSongsAsync());
     }, []);
-
-    useEffect(() => {
-        console.log(songs);
-    }, [songs]);
 
     useEffect(() => {
         if (query === '') {
@@ -45,8 +41,11 @@ const Songbook = () => {
     }, [query, songs]);
 
     const DisplayResults = () => {
-        if (results && results.length) {
-            return results.map((result, i) => <SongCardPreview key={i} song={result} />);
+        if (results && currentUser && results.length) {
+            const favSongs = currentUser.myFavSongs;
+            return results.map((result, i) => (
+                <SongCardPreview key={i} song={result} fav={favSongs.includes(result.id)} />
+            ));
         }
 
         return <p>No results found</p>;

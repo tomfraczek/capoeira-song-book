@@ -6,6 +6,7 @@ import {
     onAuthStateChangedListener,
     createUserDocumentFromAuth,
     getSongsAndDocuments,
+    getUsersFromDb,
 } from './utils/firebase/firebase.utils';
 import { setCurrentUser } from './store/user/user.action';
 import { fetchSongsAsync } from './store/songs/songs.action';
@@ -26,8 +27,16 @@ const App = () => {
             if (user) {
                 createUserDocumentFromAuth(user);
             }
+
+            // const users = getUsersFromDb();
             const { displayName, email, uid, metadata } = user;
-            dispatch(setCurrentUser({ displayName, email, uid, metadata }));
+
+            const getUsers = async () => {
+                const users = await getUsersFromDb();
+                const myFavSongs = users.filter(user => user.uid === uid)[0].myFavSongs;
+                dispatch(setCurrentUser({ displayName, email, uid, metadata, myFavSongs }))
+            };
+            getUsers();
         });
 
 

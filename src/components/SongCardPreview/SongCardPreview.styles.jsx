@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const CardContainer = styled.div`
+    position: relative;
     width: 300px;
     margin-bottom: 20px;
     padding: 10px;
@@ -13,6 +14,16 @@ export const CardContainer = styled.div`
 
     &:nth-child(4n) {
         margin-right: 0;
+    }
+
+    svg {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        &:hover: {
+            cursor: pointer;
+        }
     }
 `;
 
