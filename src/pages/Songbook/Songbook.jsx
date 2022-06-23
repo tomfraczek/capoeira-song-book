@@ -25,9 +25,9 @@ const Songbook = () => {
 
     useEffect(() => {
         if (query === '') {
-            setResults(songs.data);
+            setResults(songs);
         } else {
-            const result = songs.data
+            const result = songs
                 .filter(
                     song =>
                         song.title?.toLowerCase().includes(query.toLowerCase()) ||
