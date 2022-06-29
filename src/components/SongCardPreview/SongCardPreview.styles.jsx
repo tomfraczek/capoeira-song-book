@@ -7,6 +7,9 @@ export const CardContainer = styled.div`
     padding: 10px;
     margin: 10px;
     border: 1px solid #c4c4c4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &:nth-child(4n + 1) {
         margin-left: 0;
@@ -18,10 +21,11 @@ export const CardContainer = styled.div`
 
     svg {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 5px;
+        right: 5px;
+        width: 20px;
 
-        &:hover: {
+        &:hover {
             cursor: pointer;
         }
     }
@@ -30,10 +34,15 @@ export const CardContainer = styled.div`
 export const CardTitile = styled.p`
     font-size: 22px;
     margin-top: 0;
+    margin-bottom: 5px;
     color: #416a59;
+    word-break: break-word;
+    white-space: break-spaces;
+    max-width: 90%;
 `;
 
 export const LyricsParagraph = styled.p`
+    word-break: break-word;
     white-space: break-spaces;
     word-break: break-all;
     color: #416a59;

@@ -16,7 +16,7 @@ const Song = () => {
     const { id } = params;
 
     useEffect(() => {
-        setSong(songs.data.find(song => song.id == id));
+        setSong(songs.find(song => song.id == id));
         // console.log(orderLyrics({ b: 'adasd', k: 'sadasd', o: 'sadasd', a: 'csd' }));
     }, [songs]);
 

@@ -28,36 +28,46 @@ const DrawerMenu = [
         name: 'Dashboard',
         path: 'dashboard',
         icon: <DashboardIcon />,
+        active: true,
     },
     {
         name: 'Favorites',
         path: 'favorites',
         icon: <SaveAltIcon />,
+        active: true,
     },
     {
         name: 'My Songs',
         path: 'my-songs',
         icon: <LibraryMusicIcon />,
+        active: true,
     },
     {
         name: 'Notifications',
         path: 'notifications',
         icon: <NotificationsIcon />,
+        active: false,
     },
     {
         name: 'Edit Profile',
         path: 'edit-profile',
         icon: <AccountBoxIcon />,
+        active: true,
     },
 ];
 
 const DrawerSubmenu = [
     {
         name: 'Add New Song',
-        path: '/add-song',
+        path: 'new-song',
         icon: <AddCircleIcon />,
+        active: true,
     },
 ];
+
+const ButtonStyle = {
+    color: '#416a59',
+};
 
 const ProfileDrawer = () => {
     return (
@@ -78,12 +88,12 @@ const ProfileDrawer = () => {
                 anchor="left"
             >
                 <List>
-                    {DrawerMenu.map(({ name, path, icon }, i) => (
-                        <Link to={path} key={i}>
-                            <ListItem key={name} disablePadding>
-                                <ListItemButton>
+                    {DrawerMenu.map(({ name, path, icon, active }, i) => (
+                        <Link to={active ? path : '#'} key={i} style={{ cursor: 'not-allowed' }}>
+                            <ListItem key={name} disablePadding style={ButtonStyle}>
+                                <ListItemButton disabled={!active}>
                                     <ListItemIcon>{icon}</ListItemIcon>
-                                    <ListItemText primary={name} />
+                                    <ListItemText primary={name} style={ButtonStyle} />
                                 </ListItemButton>
                             </ListItem>
                         </Link>
@@ -98,7 +108,7 @@ const ProfileDrawer = () => {
                             <ListItem key={name} disablePadding>
                                 <ListItemButton>
                                     <ListItemIcon>{icon}</ListItemIcon>
-                                    <ListItemText primary={name} />
+                                    <ListItemText primary={name} style={ButtonStyle} />
                                 </ListItemButton>
                             </ListItem>
                         </Link>

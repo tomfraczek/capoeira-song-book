@@ -107,9 +107,6 @@ const AddSong = () => {
 
     return (
         <>
-            <HeaderContainer>
-                <Header>Add a song</Header>
-            </HeaderContainer>
             {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
             <AddSongContainer>
                 <AddSongForm onSubmit={handleSubmit(onSubmit)}>

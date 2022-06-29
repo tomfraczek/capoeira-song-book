@@ -95,7 +95,7 @@ const AccountMenu = ({ user }) => {
                             <Avatar /> Profile
                         </MenuItem>
                         <Divider />
-                        <MenuItem onClick={() => navigate('/add-song')}>
+                        <MenuItem onClick={() => navigate('/profile/new-song')}>
                             <ListItemIcon>
                                 <PersonAdd fontSize="small" />
                             </ListItemIcon>

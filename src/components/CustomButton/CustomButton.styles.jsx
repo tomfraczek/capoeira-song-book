@@ -7,6 +7,12 @@ export const BaseButton = styled.button`
     text-transform: uppercase;
     border: 0;
     font-size: 16px;
+    width: 100%;
+    margin-top: auto;
+
+    a {
+        color: #fff;
+    }
 
     &:hover {
         cursor: pointer;

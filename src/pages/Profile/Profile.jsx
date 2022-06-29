@@ -6,6 +6,7 @@ import MyFavorites from './MyFavorites';
 import MySongs from './MySongs';
 import Notifications from './Notifications';
 import EditProfile from './EditProfile';
+import NewSong from './NewSong';
 
 import { ProfileContainer } from './Profile.styles';
 
@@ -20,6 +21,7 @@ const Profile = () => (
             <Route path="my-songs" element={<MySongs />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="new-song" element={<NewSong />} />
         </Routes>
     </ProfileContainer>
 );
