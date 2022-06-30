@@ -84,6 +84,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const CheckboxContainer = styled.div`
+    padding-left: 20px;
     display: flex;
     margin-bottom: 15px;
 

@@ -188,22 +188,24 @@ const AddSong = () => {
                     )}
 
                     <CheckboxContainer>
-                        <input
-                            type="checkbox"
-                            name="chorus"
-                            checked={autoChorus}
-                            onChange={handleAutoChorusChange}
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    name="autoComplete"
+                                    checked={autoChorus}
+                                    onChange={handleAutoChorusChange}
+                                />
+                            }
+                            label="Auto Complete"
                         />
-                        <label htmlFor="chorus">Auto Complete</label>
                     </CheckboxContainer>
                     <CheckboxContainer>
-                        <input
-                            type="checkbox"
-                            name="previev"
-                            checked={preview}
-                            onChange={handlePreviewChange}
+                        <FormControlLabel
+                            control={
+                                <Checkbox name="previev" checked={preview} onChange={handlePreviewChange} />
+                            }
+                            label="Live Preview"
                         />
-                        <label htmlFor="previev">Live Preview</label>
                     </CheckboxContainer>
 
                     <TitleContainer>

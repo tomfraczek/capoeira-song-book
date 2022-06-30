@@ -20,6 +20,12 @@ import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import AddIcon from '@mui/icons-material/Add';
+
+import { selectUsersPlaylists } from '../../store/user/user.selector';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const drawerWidth = 240;
 
@@ -28,12 +34,6 @@ const DrawerMenu = [
         name: 'Dashboard',
         path: 'dashboard',
         icon: <DashboardIcon />,
-        active: true,
-    },
-    {
-        name: 'Favorites',
-        path: 'favorites',
-        icon: <SaveAltIcon />,
         active: true,
     },
     {
@@ -54,13 +54,19 @@ const DrawerMenu = [
         icon: <AccountBoxIcon />,
         active: true,
     },
-];
-
-const DrawerSubmenu = [
     {
         name: 'Add New Song',
         path: 'new-song',
         icon: <AddCircleIcon />,
+        active: true,
+    },
+];
+
+const DrawerSubmenu = [
+    {
+        name: 'Favorites',
+        path: 'favorites',
+        icon: <BookmarkIcon />,
         active: true,
     },
 ];
@@ -70,6 +76,12 @@ const ButtonStyle = {
 };
 
 const ProfileDrawer = () => {
+    const playlists = useSelector(selectUsersPlaylists);
+
+    useEffect(() => {
+        console.log(playlists);
+    }, [playlists]);
+
     return (
         <Box sx={{ display: 'flex' }}>
             <Drawer
@@ -113,6 +125,12 @@ const ProfileDrawer = () => {
                             </ListItem>
                         </Link>
                     ))}
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <AddIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Create new playlist" style={ButtonStyle} />
+                    </ListItemButton>
                 </List>
             </Drawer>
         </Box>

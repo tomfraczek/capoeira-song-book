@@ -35,18 +35,8 @@ const SongCardPreview = ({ song, fav }) => {
         setUser(currentUser);
     }, [currentUser]);
 
-    // useEffect(() => {
-    //     const users = async () => {
-    //         const foo = await getUsersFromDb();
-    //         console.log(foo);
-    //         return foo;
-    //     };
-    //     users();
-    // }, []);
-
     const clickHandler = () => {
         const favSongs = currentUser.myFavSongs;
-        console.log(currentUser);
 
         if (!favSongs.includes(id)) {
             updateUser(currentUser.uid, { myFavSongs: [...favSongs, id] });
