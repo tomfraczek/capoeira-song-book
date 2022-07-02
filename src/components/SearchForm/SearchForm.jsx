@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { SearchBar } from './SearchForm.styles';
+import { SearchBar, FormContainer } from './SearchForm.styles';
 
 const SearchForm = ({ onChange }) => {
     const {
@@ -15,9 +15,9 @@ const SearchForm = ({ onChange }) => {
     });
 
     return (
-        <form>
+        <FormContainer>
             <SearchBar placeholder="Search" {...register('search')} required onChange={onChange} />
-        </form>
+        </FormContainer>
     );
 };
 

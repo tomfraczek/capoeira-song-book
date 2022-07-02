@@ -8,6 +8,7 @@ import { fetchSongsAsync } from '../../store/songs/songs.action';
 
 import SongCardPreview from '../../components/SongCardPreview/SongCardPreview';
 import SearchForm from '../../components/SearchForm/SearchForm';
+import DisplaySongsTable from '../../components/DisplaySongsTable';
 
 import { SongbookContainer } from './Songbook.styles';
 
@@ -40,22 +41,12 @@ const Songbook = () => {
         }
     }, [query, songs]);
 
-    const DisplayResults = () => {
-        if (results && currentUser && results.length) {
-            const favSongs = currentUser.myFavSongs;
-            return results.map((result, i) => (
-                <SongCardPreview key={i} song={result} fav={favSongs.includes(result.id)} />
-            ));
-        }
-
-        return <p>No results found</p>;
-    };
-
     return (
         <>
             <SearchForm onChange={e => setQuery(e.target.value)} />
             <SongbookContainer>
-                <DisplayResults />
+                <DisplaySongsTable data={results} />
+                {/* <DisplayResults /> */}
             </SongbookContainer>
         </>
     );

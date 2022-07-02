@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import { CategoryBadgeContainer } from '../../components/CategoryBadge/CategoryBadge.styles';
 
+export const SongContainer = styled.div`
+    padding: 15px;
+    background-color: #fff;
+`;
+
 export const SongContentContainer = styled.div`
     display: flex;
-    // align-items: flex-end;
     justify-content: space-between;
 `;
 
@@ -19,5 +23,7 @@ export const SongVerse = styled.p`
         font-weight: bold;
     }
 `;
+
+export const CtaContainer = styled.div``;
 
 export const LyricsContainer = styled.div``;

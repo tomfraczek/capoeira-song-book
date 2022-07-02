@@ -92,12 +92,11 @@ export const onAuthStateChangedListener = callback => onAuthStateChanged(auth, c
 
 export const addSongToDb = async objectToAdd => {
     try {
-        const newCityRef = doc(collection(db, 'songs'));
+        const newSongRef = doc(collection(db, 'songs'));
 
-        await addDoc(collection(db, 'songs'), {
-            ...objectToAdd,
-            id: newCityRef.id,
-        });
+        objectToAdd = {...objectToAdd, id: newSongRef.id}
+     
+        await setDoc(doc(db, 'songs', newSongRef.id), objectToAdd);
         console.log('Song added to db');
     } catch (error) {
         console.log('error creating the document', error);
@@ -106,6 +105,7 @@ export const addSongToDb = async objectToAdd => {
 
 export const updateUser = async (id, updates) => {
     const userRef = doc(db, 'users', id);
+    console.log(id, updates);
 
     await updateDoc(userRef, updates);
 };
@@ -145,4 +145,11 @@ export const getUsersFromDb = async () => {
     const users = querySnapshot.docs.map(doc => doc.data());
 
     return users;
+};
+
+export const updateSongDb = async (id, updates) => {
+    const songRef = doc(db, 'songs', id);
+    console.log(updates);
+
+    await updateDoc(songRef, updates);
 };

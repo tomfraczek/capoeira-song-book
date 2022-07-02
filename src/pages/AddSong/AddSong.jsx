@@ -12,7 +12,12 @@ import {
     Radio,
 } from '@mui/material';
 
-import { addSongToDb, updateUser, getCurrentUser } from '../../utils/firebase/firebase.utils';
+import {
+    addSongToDb,
+    updateUser,
+    getCurrentUser,
+    onAuthStateChangedListener,
+} from '../../utils/firebase/firebase.utils';
 
 import { selectCurrentUser } from '../../store/user/user.selector';
 
@@ -60,6 +65,14 @@ const AddSong = () => {
         },
     });
 
+    useEffect(() => {
+        const updateUserDb = onAuthStateChangedListener(user => {
+            setUserId(user.uid);
+        });
+
+        updateUserDb();
+    }, []);
+
     const onSubmit = data => {
         const { title, category, youtube, ...rest } = data;
         const createdAt = new Date();
@@ -70,6 +83,7 @@ const AddSong = () => {
             youtube,
             autoComplete: autoChorus,
             addedBy: userId,
+            rating: 0,
             lyrics: { ...rest },
         };
         addSongToDb(songToAdd, category);
@@ -223,11 +237,7 @@ const AddSong = () => {
                     {errors.exampleRequired && <span>This field is required</span>}
 
                     <ButtonContainer>
-                        <CustomButton
-                            type="submit"
-                            buttonType={BUTTON_TYPE_CLASSES.base}
-                            onClick={addTextInput}
-                        >
+                        <CustomButton type="submit" buttonType={BUTTON_TYPE_CLASSES.base}>
                             Submit
                         </CustomButton>
                     </ButtonContainer>

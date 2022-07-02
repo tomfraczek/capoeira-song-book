@@ -7,6 +7,7 @@ import {
     createUserDocumentFromAuth,
     getSongsAndDocuments,
     getUsersFromDb,
+    addNewPlaylist,
 } from './utils/firebase/firebase.utils';
 import { setCurrentUser } from './store/user/user.action';
 import { fetchSongsAsync } from './store/songs/songs.action';
@@ -31,14 +32,13 @@ const App = () => {
             // const users = getUsersFromDb();
             const { displayName, email, uid, metadata } = user;
 
-            const getUsers = async () => {
+            const dispatchUser = async () => {
                 const users = await getUsersFromDb();
                 const myFavSongs = users.filter(user => user.uid === uid)[0].myFavSongs;
                 dispatch(setCurrentUser({ displayName, email, uid, metadata, myFavSongs }))
             };
-            getUsers();
+            dispatchUser();
         });
-
 
         return unsubscribe;
     }, []);

@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const FormContainer = styled.form`
+    background-color: #fff;
+    padding: 15px;
+`;
+
 export const SearchBar = styled.input`
     height: 56px;
     border-width: 1px;
