@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import SongCardPreview from '../../../components/SongCardPreview/SongCardPreview';
+import DisplaySongsTable from '../../../components/DisplaySongsTable';
+import SongCardPreview from '../../../components/SongCardPreview';
 import { selectSongs } from '../../../store/songs/songs.selector';
 import { selectCurrentUser, selectUsersFavSongs } from '../../../store/user/user.selector';
 
@@ -12,16 +12,18 @@ const MyFavorites = () => {
     const favSongs = useSelector(selectUsersFavSongs);
 
     useEffect(() => {
-        // console.log(currentUser);
+        // console.log(favSongs);
         // const foo = songs.data.filter(song => currentUser.myFavSongs.map(favSong => song.id === favSong));
         setUsersFavSongs(songs.filter(song => favSongs.includes(song.id)));
     }, [currentUser, songs, favSongs]);
 
+    useEffect(() => {
+        console.log(usersFavSongs);
+    }, [usersFavSongs]);
+
     return (
         <div>
-            {usersFavSongs.map(song => (
-                <SongCardPreview song={song} />
-            ))}
+            <DisplaySongsTable data={usersFavSongs} />
         </div>
     );
 };

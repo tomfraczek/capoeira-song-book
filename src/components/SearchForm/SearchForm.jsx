@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
-import { SearchBar, FormContainer } from './SearchForm.styles';
+import { FormContainer } from './SearchForm.styles';
 
 const SearchForm = ({ onChange }) => {
     const {
@@ -16,7 +17,7 @@ const SearchForm = ({ onChange }) => {
 
     return (
         <FormContainer>
-            <SearchBar placeholder="Search" {...register('search')} required onChange={onChange} />
+            <TextField label="Search" variant="outlined" {...register('search')} onChange={onChange} />
         </FormContainer>
     );
 };

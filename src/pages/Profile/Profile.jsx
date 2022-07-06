@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import ProfileDrawer from '../../components/ProfileDrawer';
+import UserDrawer from '../../components/UserDrawer/UserDrawer';
 import Dashboard from './Dashboard';
 import MyFavorites from './MyFavorites';
 import MySongs from './MySongs';
@@ -12,7 +12,7 @@ import { ProfileContainer } from './Profile.styles';
 
 const Profile = () => (
     <ProfileContainer>
-        <ProfileDrawer />
+        <UserDrawer />
 
         <Routes>
             <Route index element={<Dashboard />} />

@@ -17,12 +17,6 @@ const Navigation = () => {
                 <LogoContainer>
                     <h1>Capoeira Songbook</h1>
                 </LogoContainer>
-                <NavigationLinks>
-                    <Link to="/">Home</Link>
-                    <Link to="/songbook">Songbook</Link>
-
-                    {currentUser ? <AccountMenu user={currentUser} /> : <Link to="/auth">Sign Up</Link>}
-                </NavigationLinks>
             </NavigationContainer>
             <Outlet />
         </>

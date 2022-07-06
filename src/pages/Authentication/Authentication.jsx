@@ -1,7 +1,7 @@
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import SignInForm from '../../components/SignInForm/SignInForm';
 
-const AuthenticationAuthentication = () => {
+const Authentication = () => {
     return (
         <div>
             <h1>Sign In Page</h1>
@@ -11,4 +11,4 @@ const AuthenticationAuthentication = () => {
     );
 };
 
-export default AuthenticationAuthentication;
+export default Authentication;

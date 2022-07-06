@@ -38,7 +38,7 @@ const SongCardPreview = ({ song, fav }) => {
             <Link to={`song/${id}`}>
                 <CardTitile>{title}</CardTitile>
             </Link>
-            <FavIcon active={fav} />
+            <FavIcon />
 
             <CategoryBadge category={category} />
             <LyricsParagraph>{shortenString(lyrics['lyrics-1-a'], 50)}</LyricsParagraph>

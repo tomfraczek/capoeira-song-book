@@ -95,7 +95,7 @@ const DisplaySongRow = ({ song }) => {
                     <IconContainer>
                         <OpenInNewIcon onClick={() => navigate(`song/${song.id}`)} />
                     </IconContainer>
-                    {/* {isUserLogged && <FavIcon song={song} />} */}
+                    {isUserLogged && <FavIcon song={song} id={id} />}
                 </TableCell>
                 <TableCell />
             </TableRow>

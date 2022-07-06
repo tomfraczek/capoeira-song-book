@@ -13,7 +13,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
+import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
@@ -22,6 +22,8 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AddIcon from '@mui/icons-material/Add';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
 
 import { selectUsersPlaylists } from '../../store/user/user.selector';
 import { useSelector } from 'react-redux';
@@ -35,6 +37,12 @@ const DrawerMenu = [
         name: 'Dashboard',
         path: 'dashboard',
         icon: <DashboardIcon />,
+        active: true,
+    },
+    {
+        name: 'Songbook',
+        path: 'songbook',
+        icon: <MusicNoteIcon />,
         active: true,
     },
     {
@@ -76,7 +84,7 @@ const ButtonStyle = {
     color: '#416a59',
 };
 
-const ProfileDrawer = () => {
+const UserDrawer = () => {
     // const playlists = useSelector(selectUsersPlaylists);
 
     // useEffect(() => {
@@ -134,10 +142,16 @@ const ProfileDrawer = () => {
                         </ListItemIcon>
                         <ListItemText primary="Create new playlist" style={ButtonStyle} />
                     </ListItemButton>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <MeetingRoomOutlinedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Logout" style={ButtonStyle} />
+                    </ListItemButton>
                 </List>
             </Drawer>
         </Box>
     );
 };
 
-export default ProfileDrawer;
+export default UserDrawer;

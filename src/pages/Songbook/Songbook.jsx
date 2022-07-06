@@ -10,7 +10,7 @@ import SongCardPreview from '../../components/SongCardPreview/SongCardPreview';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import DisplaySongsTable from '../../components/DisplaySongsTable';
 
-import { SongbookContainer } from './Songbook.styles';
+import { SongbookContainer, TableContainer } from './Songbook.styles';
 
 const Songbook = () => {
     const songs = useSelector(selectSongs);
@@ -42,13 +42,12 @@ const Songbook = () => {
     }, [query, songs]);
 
     return (
-        <>
+        <SongbookContainer>
             <SearchForm onChange={e => setQuery(e.target.value)} />
-            <SongbookContainer>
+            <TableContainer>
                 <DisplaySongsTable data={results} />
-                {/* <DisplayResults /> */}
-            </SongbookContainer>
-        </>
+            </TableContainer>
+        </SongbookContainer>
     );
 };
 

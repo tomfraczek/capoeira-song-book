@@ -32,7 +32,7 @@ export const AddSongContainer = styled.div`
     flex-direction: row;
     position: relative;
     align-items: flex-start;
-    margin-top: 30px;
+    background-color: #fff;
 `;
 
 export const Header = styled.span`
