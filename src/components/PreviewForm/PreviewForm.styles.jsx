@@ -6,6 +6,7 @@ export const PreviewContainer = styled.div`
     top: 20px;
     margin-left: 20px;
     align-items: flex-start;
+    padding-right: 20px;
 `;
 
 export const PreviewTitle = styled.h1`
@@ -14,6 +15,11 @@ export const PreviewTitle = styled.h1`
 
 export const PreviewParagraph = styled.p`
     white-space: pre-line;
+    display: flex;
+
+    span:first-child {
+        margin-right: 5px;
+    }
 `;
 
 export const PreviewParagraphContainer = styled.div`
@@ -24,6 +30,7 @@ export const PreviewParagraphContainer = styled.div`
 export const PreviewParagraphBold = styled.p`
     font-weight: bold;
     white-space: pre-line;
+    margin-left: 18px;
 `;
 
 export const PreviewContent = styled.div`

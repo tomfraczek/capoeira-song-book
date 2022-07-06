@@ -18,6 +18,7 @@ export const Textarea = styled.textarea`
     border-radius: 4px;
     padding: 16.5px 32px 16.5px 14px;
     margin-bottom: 10px;
+    width: 100%;
 `;
 
 export const RadioContainer = styled.div`
@@ -27,6 +28,7 @@ export const RadioContainer = styled.div`
 export const AddSongContainer = styled.div`
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     position: relative;
     align-items: flex-start;
@@ -47,6 +49,7 @@ export const AddSongForm = styled.form`
 export const LyricsContainer = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     border: 1px solid #c4c4c4;
     padding: 20px;
     margin-bottom: 15px;
@@ -121,18 +124,12 @@ export const ExampleContainer = styled.div`
 
 export const ButtonContainer = styled.div`
     display: flex;
-    justify-content: flex-end;
+`;
 
-    svg {
-        color: #a9c25d;
-        height: 40px;
-        width: 40px;
-        position: relative;
-        top: -15px;
+export const CtaContainer = styled.div`
+    width: 100%;
+`;
 
-        &:hover {
-            cursor: pointer;
-            color: #73a24e;
-        }
-    }
+export const YouTubeContainer = styled.div`
+    display: flex;
 `;

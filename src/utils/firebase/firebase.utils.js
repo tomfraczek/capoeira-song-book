@@ -153,3 +153,13 @@ export const updateSongDb = async (id, updates) => {
 
     await updateDoc(songRef, updates);
 };
+
+export const getUserById = async id => {
+    const collectionRef = collection(db, 'users');
+    const q = query(collectionRef);
+    const querySnapshot = await getDocs(q);
+
+    const users = querySnapshot.docs.map(doc => doc.data());
+    const user = users.filter(user => user.uid === id);
+    return user[0];
+}

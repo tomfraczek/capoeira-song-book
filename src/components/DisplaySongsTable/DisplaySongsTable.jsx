@@ -84,7 +84,6 @@ const DisplaySongsTable = ({ data }) => {
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     const labelId = `enhanced-table-checkbox-${index}`;
-                                    console.log(row);
                                     return <DisplaySongRow key={labelId} song={row} />;
                                 })}
 

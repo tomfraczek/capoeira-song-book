@@ -5,12 +5,9 @@ import { useDispatch } from 'react-redux';
 import {
     onAuthStateChangedListener,
     createUserDocumentFromAuth,
-    getSongsAndDocuments,
     getUsersFromDb,
-    addNewPlaylist,
 } from './utils/firebase/firebase.utils';
 import { setCurrentUser } from './store/user/user.action';
-import { fetchSongsAsync } from './store/songs/songs.action';
 
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
@@ -27,17 +24,16 @@ const App = () => {
         const unsubscribe = onAuthStateChangedListener(user => {
             if (user) {
                 createUserDocumentFromAuth(user);
+                const { displayName, email, uid, metadata } = user;
+
+                const dispatchUser = async () => {
+                    const users = await getUsersFromDb();
+                    const myFavSongs = users.filter(user => user.uid === uid)[0].myFavSongs;
+                    dispatch(setCurrentUser({ displayName, email, uid, metadata, myFavSongs }));
+                };
+
+                dispatchUser();
             }
-
-            // const users = getUsersFromDb();
-            const { displayName, email, uid, metadata } = user;
-
-            const dispatchUser = async () => {
-                const users = await getUsersFromDb();
-                const myFavSongs = users.filter(user => user.uid === uid)[0].myFavSongs;
-                dispatch(setCurrentUser({ displayName, email, uid, metadata, myFavSongs }))
-            };
-            dispatchUser();
         });
 
         return unsubscribe;

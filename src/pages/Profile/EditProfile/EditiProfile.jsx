@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import FormInput from '../../../components/FormInput/FormInput';
 import CustomButton, { BUTTON_TYPE_CLASSES } from '../../../components/CustomButton/CustomButton';
 
+import { FormContainer } from './EditProfile.styles';
+
 const defaultFieldValues = {
     displayName: '',
     email: '',
@@ -60,7 +62,7 @@ const EditiProfile = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <FormContainer onSubmit={handleSubmit}>
                 <FormInput
                     placeholder="Display Name"
                     type="text"
@@ -68,6 +70,7 @@ const EditiProfile = () => {
                     onChange={handleChange}
                     name="displayName"
                     value={displayName}
+                    label="Display Name"
                 />
                 <FormInput
                     placeholder="Email"
@@ -76,11 +79,16 @@ const EditiProfile = () => {
                     onChange={handleChange}
                     name="email"
                     value={email}
+                    label="Email"
                 />
-                <CustomButton buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
+                <CustomButton
+                    style={{ marginLeft: '8px' }}
+                    buttonType={BUTTON_TYPE_CLASSES.base}
+                    type="submit"
+                >
                     Update
                 </CustomButton>
-            </form>
+            </FormContainer>
         </>
     );
 };

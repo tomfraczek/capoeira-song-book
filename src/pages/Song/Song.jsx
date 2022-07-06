@@ -17,27 +17,37 @@ const Song = () => {
     const songs = useSelector(selectSongs);
     const currentUser = useSelector(selectCurrentUser);
     const [song, setSong] = useState({});
+    const [loading, setLoading] = useState(true);
     const { id } = params;
 
     useEffect(() => {
         setSong(songs.find(song => song.id == id));
     }, [songs]);
 
+    useEffect(() => {
+        console.log(song);
+
+        if (song.youtube !== undefined) {
+            setLoading(false);
+        }
+    }, [song]);
+
     return (
         <SongContainer>
-            {song && (
+            {!loading ? (
                 <>
                     <Title>{song.title}</Title>
                     <CtaContainer>
-                        <FavIcon />
+                        <FavIcon song={song} />
                     </CtaContainer>
-                    <CategoryBadge>{song.category}</CategoryBadge>
+                    <CategoryBadge category={song.category} />
                     <SongContentContainer>
-                        <LyricsContainer>{song?.lyrics && <DisplayLyrics song={song} />}</LyricsContainer>
-
-                        {/* <YouTubePlayer src={song.youtube} /> */}
+                        <LyricsContainer>{song.lyrics && <DisplayLyrics song={song} />}</LyricsContainer>
+                        <YouTubePlayer src={song.youtube} />
                     </SongContentContainer>
                 </>
+            ) : (
+                <p>Loading...</p>
             )}
         </SongContainer>
     );

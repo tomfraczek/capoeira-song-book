@@ -26,8 +26,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { selectUsersPlaylists } from '../../store/user/user.selector';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { Paper } from '@mui/material';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const DrawerMenu = [
     {
@@ -76,11 +77,11 @@ const ButtonStyle = {
 };
 
 const ProfileDrawer = () => {
-    const playlists = useSelector(selectUsersPlaylists);
+    // const playlists = useSelector(selectUsersPlaylists);
 
-    useEffect(() => {
-        console.log(playlists);
-    }, [playlists]);
+    // useEffect(() => {
+    //     console.log(playlists);
+    // }, [playlists]);
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -89,11 +90,13 @@ const ProfileDrawer = () => {
                     width: drawerWidth,
                     flexShrink: 0,
                     '& .MuiDrawer-paper': {
-                        backgroundColor: 'transparent',
+                        backgroundColor: '#fff',
                         border: 'none',
                         top: '80px',
                         width: drawerWidth,
                         boxSizing: 'border-box',
+                        position: 'initial',
+                        paddingRight: '20px',
                     },
                 }}
                 variant="permanent"

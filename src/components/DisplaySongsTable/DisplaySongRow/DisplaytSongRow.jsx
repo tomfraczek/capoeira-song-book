@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableCell from '@mui/material/TableCell';
@@ -11,15 +13,44 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
-import { updateSongDb } from '../../../utils/firebase/firebase.utils';
+import {
+    updateSongDb,
+    getUserById,
+    onAuthStateChangedListener,
+} from '../../../utils/firebase/firebase.utils';
 
 import DisplayLyrics from '../../DisplayLyrics';
+import CategoryBadge from '../../CategoryBadge';
 import HalfRating from '../../HalfRating';
 import FavIcon from '../../FavIcon';
 
+import { IconContainer } from './DisplaySongRow.styles';
+
 const DisplaySongRow = ({ song }) => {
     const [open, setOpen] = useState(false);
+    const [author, setAuthor] = useState({});
+    const [isUserLogged, setIsUserLogged] = useState(false);
+    const navigate = useNavigate();
     const { title, id, addedBy, createdAt, category } = song;
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChangedListener(user => {
+            if (user) {
+                setIsUserLogged(true);
+            }
+        });
+
+        return unsubscribe;
+    }, []);
+
+    useEffect(() => {
+        const updateUserDb = async () => {
+            const user = await getUserById(addedBy);
+            setAuthor(user);
+        };
+
+        updateUserDb();
+    }, []);
 
     const handleRating = e => {
         try {
@@ -53,14 +84,18 @@ const DisplaySongRow = ({ song }) => {
                 </TableCell>
                 <TableCell align="left">{title}</TableCell>
                 <TableCell align="left">
-                    <HalfRating handleRating={handleRating} />
+                    <CategoryBadge category={category} />
                 </TableCell>
-                <TableCell align="left">{category}</TableCell>
-                <TableCell align="right">{createdAt.seconds}</TableCell>
-                <TableCell align="left">{addedBy}</TableCell>
+                <TableCell align="left">
+                    <HalfRating readOnly handleRating={handleRating} value={song.rating} />
+                </TableCell>
+                <TableCell align="right">{createdAt}</TableCell>
+                <TableCell align="left">{author.displayName}</TableCell>
                 <TableCell align="right">
-                    <OpenInNewIcon />
-                    <FavIcon song={song} />
+                    <IconContainer>
+                        <OpenInNewIcon onClick={() => navigate(`song/${song.id}`)} />
+                    </IconContainer>
+                    {/* {isUserLogged && <FavIcon song={song} />} */}
                 </TableCell>
                 <TableCell />
             </TableRow>

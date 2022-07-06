@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -16,9 +17,12 @@ import Logout from '@mui/icons-material/Logout';
 
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 
+import { setCurrentUser } from '../../store/user/user.action';
+
 const AccountMenu = ({ user }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const { displayName, email, metadata } = user;
+    const dispatch = useDispatch();
 
     useEffect(() => {
         // console.log(email);
@@ -34,6 +38,11 @@ const AccountMenu = ({ user }) => {
 
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleLogOut = () => {
+        signOutUser();
+        dispatch(setCurrentUser(null));
     };
 
     return (
@@ -101,7 +110,7 @@ const AccountMenu = ({ user }) => {
                             </ListItemIcon>
                             Add a new song
                         </MenuItem>
-                        <MenuItem onClick={signOutUser}>
+                        <MenuItem onClick={handleLogOut}>
                             <ListItemIcon>
                                 <Logout fontSize="small" />
                             </ListItemIcon>

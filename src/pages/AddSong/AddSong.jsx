@@ -10,6 +10,7 @@ import {
     FormControlLabel,
     RadioGroup,
     Radio,
+    Tooltip,
 } from '@mui/material';
 
 import {
@@ -25,6 +26,8 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import PreviewForm from '../../components/PreviewForm/PreviewForm';
 import CustomButton, { BUTTON_TYPE_CLASSES } from '../../components/CustomButton/CustomButton';
+import ButtonRounded from '../../components/ButtonRounded';
+import CustomTooltip from '../../components/Tooltip/CustomTooltip';
 
 import remove from './assets/remove.png';
 
@@ -36,13 +39,18 @@ import {
     Header,
     AddSongForm,
     LyricsContainer,
-    RemoveButton,
     TitleContainer,
     HeaderContainer,
     CheckboxContainer,
     ExampleContainer,
     ButtonContainer,
 } from './AddSong.styles';
+
+const ButtonPosition = {
+    position: 'relative',
+    width: '100%',
+    justifyContent: 'center',
+};
 
 const AddSong = () => {
     const [textInputs, setTextInputs] = useState(['lyrics-1']);
@@ -75,11 +83,22 @@ const AddSong = () => {
 
     const onSubmit = data => {
         const { title, category, youtube, ...rest } = data;
+        const timestamp = Date.now(); // This would be the timestamp you want to format
+        const timestampFormat = new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        }).format(timestamp);
+
+        console.log();
         const createdAt = new Date();
         const songToAdd = {
             category,
             title,
-            createdAt,
+            createdAt: timestampFormat,
             youtube,
             autoComplete: autoChorus,
             addedBy: userId,
@@ -170,9 +189,17 @@ const AddSong = () => {
                     {textInputs.map((input, i) => (
                         <LyricsContainer key={input}>
                             {textInputs.length !== 1 && (
-                                <RemoveButton onClick={() => removeTextInput(input)}>
-                                    <img src={remove} />
-                                </RemoveButton>
+                                <CustomTooltip
+                                    style={{
+                                        position: 'absolute',
+                                        right: '-20px',
+                                        top: 'calc(50% - 20px)',
+                                    }}
+                                    placement="left"
+                                    title={'Remove section'}
+                                >
+                                    <ButtonRounded onClick={() => removeTextInput(input)} type="alert" />
+                                </CustomTooltip>
                             )}
                             <FormLabel component="legend">{`Verse ${i + 1}:`}</FormLabel>
                             <Textarea placeholder="Verse" {...register(`${input}-a`)} required />
@@ -184,15 +211,6 @@ const AddSong = () => {
                             )}
                         </LyricsContainer>
                     ))}
-                    <ButtonContainer>
-                        {/* <CustomButton
-                            buttonType={BUTTON_TYPE_CLASSES.light}
-                            type="button"
-                            
-                        > */}
-                        <AddCircleIcon onClick={addTextInput} />
-                        {/* </CustomButton> */}
-                    </ButtonContainer>
 
                     {autoChorus && (
                         <LyricsContainer>
@@ -200,6 +218,21 @@ const AddSong = () => {
                             <Textarea placeholder="Chorus" {...register(`lyrics-b`)} required />
                         </LyricsContainer>
                     )}
+
+                    <ButtonContainer style={ButtonPosition}>
+                        <CustomButton
+                            type="button"
+                            buttonType={BUTTON_TYPE_CLASSES.transparent}
+                            onClick={addTextInput}
+                        >
+                            + Add another verse +
+                        </CustomButton>
+                        {/* <ButtonRounded
+                            style={{ position: 'absolute', right: '-20px' }}
+                            type="add"
+                            onClick={addTextInput}
+                        /> */}
+                    </ButtonContainer>
 
                     <CheckboxContainer>
                         <FormControlLabel

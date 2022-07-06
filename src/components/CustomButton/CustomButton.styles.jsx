@@ -32,4 +32,15 @@ export const LightButton = styled(BaseButton)`
     }
 `;
 
+export const TransparentButton = styled(BaseButton)`
+    background-color: transparent;
+    color: #000;
+
+    &:hover {
+        color: #416a59;
+        // border: 1px solid #416a59;
+        background-color: transparent;
+    }
+`;
+
 export const ButtonContainer = styled.div``;

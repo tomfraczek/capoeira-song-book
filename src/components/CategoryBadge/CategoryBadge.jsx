@@ -1,5 +1,5 @@
 import { CategoryBadgeContainer } from './CategoryBadge.styles';
 
-const CategoryBadge = ({ children }) => <CategoryBadgeContainer>{children}</CategoryBadgeContainer>;
+const CategoryBadge = ({ category }) => <CategoryBadgeContainer>{category}</CategoryBadgeContainer>;
 
 export default CategoryBadge;

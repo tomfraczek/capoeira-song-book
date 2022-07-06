@@ -21,7 +21,6 @@ const SongCardPreview = ({ song, fav }) => {
     // maybe for later use
     // const boldString = (str, strToFind) => str.replaceAll(strToFind, `<b>${strToFind}</b>`);
     const shortenString = (str, length) => {
-        // console.log(str.substring(0, length));
         if (str.length < length) return str;
 
         return `${str.substring(0, length)}...`;
@@ -34,18 +33,14 @@ const SongCardPreview = ({ song, fav }) => {
         setUser(currentUser);
     }, [currentUser]);
 
-    // useEffect(() => {
-    // }, [id])
-
     return (
         <CardContainer>
             <Link to={`song/${id}`}>
                 <CardTitile>{title}</CardTitile>
             </Link>
-            {/* <IconHandler /> */}
             <FavIcon active={fav} />
 
-            <CategoryBadge>{category}</CategoryBadge>
+            <CategoryBadge category={category} />
             <LyricsParagraph>{shortenString(lyrics['lyrics-1-a'], 50)}</LyricsParagraph>
             <LyricsParagraph>
                 {lyrics['lyrics-1-b'] && shortenString(lyrics['lyrics-1-b'], 50)}

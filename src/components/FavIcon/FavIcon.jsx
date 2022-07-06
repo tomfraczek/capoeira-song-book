@@ -1,30 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-import { updateUser, getUsersFromDb } from '../../utils/firebase/firebase.utils';
+import { updateUser } from '../../utils/firebase/firebase.utils';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { setCurrentUser } from '../../store/user/user.action';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
+import { IconContainer } from '../DisplaySongsTable/DisplaySongRow/DisplaySongRow.styles';
+
 const FavIcon = ({ active, song }) => {
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
-    const favSongs = currentUser.myFavSongs;
+    // const favSongs = currentUser.myFavSongs;
     const { id } = song;
-    useEffect(() => {
-        console.log(currentUser);
-    }, [currentUser]);
 
+    // console.log(currentUser);
     const clickHandler = () => {
-        // console.log(favSongs);
-
-        if (!favSongs.includes(id)) {
-            updateUser(currentUser.uid, { myFavSongs: [...favSongs, song.id] });
-            dispatch(setCurrentUser({ ...currentUser, myFavSongs: [...favSongs, id] }));
+        if (!currentUser.myFavSongs.includes(id)) {
+            updateUser(currentUser.uid, { myFavSongs: [...currentUser.myFavSongs, id] });
+            dispatch(setCurrentUser({ ...currentUser, myFavSongs: [...currentUser.myFavSongs, id] }));
         } else {
-            const removedFromFav = favSongs.filter(song => song !== id);
+            const removedFromFav = currentUser.myFavSongs.filter(song => song !== id);
             updateUser(currentUser.uid, { myFavSongs: removedFromFav });
             dispatch(setCurrentUser({ ...currentUser, myFavSongs: removedFromFav }));
         }
@@ -32,10 +30,14 @@ const FavIcon = ({ active, song }) => {
 
     return (
         <>
-            {favSongs.includes(id) ? (
-                <FavoriteIcon style={{ color: '#416a59' }} onClick={clickHandler} />
+            {currentUser.myFavSongs && currentUser.myFavSongs.includes(id) ? (
+                <IconContainer>
+                    <FavoriteIcon style={{ color: '#416a59' }} onClick={clickHandler} />
+                </IconContainer>
             ) : (
-                <FavoriteBorderIcon color="action" onClick={clickHandler} />
+                <IconContainer>
+                    <FavoriteBorderIcon color="action" onClick={clickHandler} />
+                </IconContainer>
             )}
         </>
     );
