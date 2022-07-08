@@ -5,3 +5,5 @@ export const selectUsersSongs = state => {
         return state.songs.data.filter(song => song.addedBy === state.user.currentUser.uid);
     }
 };
+
+export const selectLoading = state => state.songs.isLoading;

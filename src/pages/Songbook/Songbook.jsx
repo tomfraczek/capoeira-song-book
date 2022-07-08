@@ -3,18 +3,18 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectSongs } from '../../store/songs/songs.selector';
-import { selectCurrentUser } from '../../store/user/user.selector';
+import { selectLoading } from '../../store/songs/songs.selector';
 import { fetchSongsAsync } from '../../store/songs/songs.action';
 
-import SongCardPreview from '../../components/SongCardPreview/SongCardPreview';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import DisplaySongsTable from '../../components/DisplaySongsTable';
+import LoadingCircle from '../../components/LoadingCircle/LoadingCircle';
 
 import { SongbookContainer, TableContainer } from './Songbook.styles';
 
 const Songbook = () => {
     const songs = useSelector(selectSongs);
-    const currentUser = useSelector(selectCurrentUser);
+    const isLoading = useSelector(selectLoading);
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [checkboxesValues, setCheckboxesValues] = useState([
@@ -30,6 +30,10 @@ const Songbook = () => {
     useEffect(() => {
         dispatch(fetchSongsAsync());
     }, []);
+
+    useEffect(() => {
+        console.log(isLoading);
+    }, [isLoading]);
 
     useEffect(() => {
         if (query === '') {
@@ -64,8 +68,12 @@ const Songbook = () => {
                 handleTypes={typeHandler}
                 checkboxesValues={checkboxesValues}
             />
-            <TableContainer>
-                <DisplaySongsTable data={results} types={checkboxesValues} />
+            <TableContainer style={{ alignSelf: 'center' }}>
+                {isLoading ? (
+                    <LoadingCircle />
+                ) : (
+                    <DisplaySongsTable data={results} types={checkboxesValues} />
+                )}
             </TableContainer>
         </SongbookContainer>
     );

@@ -7,4 +7,7 @@ export const TableContainer = styled.div`
 
 export const SongbookContainer = styled.div`
     background-color: #fff;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 `;

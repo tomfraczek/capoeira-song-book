@@ -54,9 +54,7 @@ const DisplaySongsTable = ({ data, types }) => {
         return 0;
     }
 
-    useEffect(() => {
-        console.log(filteredData);
-    }, [filteredData]);
+    useEffect(() => {}, [filteredData]);
 
     function getComparator(order, orderBy) {
         return order === 'desc'
@@ -86,7 +84,6 @@ const DisplaySongsTable = ({ data, types }) => {
     };
 
     const handleData = () => {
-        console.log(types);
         const foo = data.filter(song => types.includes(song.category));
         return foo;
     };
@@ -106,7 +103,6 @@ const DisplaySongsTable = ({ data, types }) => {
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row, index) => {
                                 const labelId = `enhanced-table-checkbox-${index}`;
-                                console.log(row);
                                 return <DisplaySongRow key={labelId} song={row} />;
                             })}
                     </TableBody>

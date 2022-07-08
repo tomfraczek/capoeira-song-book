@@ -68,7 +68,6 @@ const DisplaySongRow = ({ song }) => {
                     <CategoryBadge category={category} />
                 </TableCell>
                 <TableCell align="left">
-                    {console.log(song)}
                     <HalfRating readOnly value={roundHalf(song.rating.score / song.rating.votes)} />
                 </TableCell>
                 <TableCell align="right">{createdAt}</TableCell>
