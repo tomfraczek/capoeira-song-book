@@ -8,7 +8,7 @@ export const fetchSongsStart = () => {
 };
 
 export const fetchSongsSuccess = songs => {
-    return createAction(SONGS_ACTION_TYPES.FETCH_SONGS_SUCCESS, songs)
+    return createAction(SONGS_ACTION_TYPES.FETCH_SONGS_SUCCESS, songs);
 };
 
 export const fetchSongsFailed = error => {
@@ -26,4 +26,8 @@ export const fetchSongsAsync = () => {
             dispatch(fetchSongsFailed(error));
         }
     };
+};
+
+export const setSongUpdates = updates => {
+    return createAction(SONGS_ACTION_TYPES.UPDATE_SONG, updates);
 };

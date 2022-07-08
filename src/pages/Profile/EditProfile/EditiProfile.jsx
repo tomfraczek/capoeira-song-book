@@ -29,6 +29,7 @@ const EditiProfile = () => {
 
     useEffect(() => {
         if (currentUser) {
+            console.log(currentUser);
             const { displayName, email } = currentUser;
             setFormFields({ displayName, email });
         }

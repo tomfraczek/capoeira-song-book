@@ -16,6 +16,19 @@ export const songsReducer = (state = SONGS_INITIAL_STATE, action = {}) => {
             return { ...state, data: payload, isLoading: false };
         case SONGS_ACTION_TYPES.FETCH_SONGS_FAILED:
             return { ...state, error: payload, isLoading: false };
+        case SONGS_ACTION_TYPES.UPDATE_SONG:
+            // return state;
+            const { id, rating } = payload;
+            // This returns a new array instead of mutating the old one
+            return {
+                ...state,
+                data: state.data.map(song => {
+                    if (song.id === id) {
+                        song.rating = rating;
+                    }
+                    return song;
+                }),
+            };
         default:
             return state;
     }

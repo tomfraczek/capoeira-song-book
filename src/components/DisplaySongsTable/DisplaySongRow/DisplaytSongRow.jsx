@@ -39,39 +39,18 @@ const DisplaySongRow = ({ song }) => {
                 setIsUserLogged(true);
             }
         });
-
-        return unsubscribe;
-    }, []);
-
-    useEffect(() => {
         const updateUserDb = async () => {
             const user = await getUserById(addedBy);
             setAuthor(user);
         };
 
         updateUserDb();
+
+        return unsubscribe;
     }, []);
 
-    const handleRating = e => {
-        try {
-            const updateProfile = async () => {
-                const newRate = e.target.value;
-                const ratingToAdd = {
-                    rating: Number(newRate) + (!song.rating && 0),
-                };
-                await updateSongDb(song.id, ratingToAdd);
-                // dispatch(setCurrentUser(formFields));
-            };
-
-            // const updateUserDb = onAuthStateChangedListener(user => {
-            //     updateUser(user.uid, { displayName });
-            // });
-
-            updateProfile();
-            // updateUserDb();
-        } catch (error) {
-            console.log('user edit encontered an error', error.message);
-        }
+    const roundHalf = n => {
+        return (Math.round(n * 2) / 2).toFixed(1);
     };
 
     return (
@@ -87,13 +66,13 @@ const DisplaySongRow = ({ song }) => {
                     <CategoryBadge category={category} />
                 </TableCell>
                 <TableCell align="left">
-                    <HalfRating readOnly handleRating={handleRating} value={song.rating} />
+                    <HalfRating readOnly value={roundHalf(song.rating.score / song.rating.votes)} />
                 </TableCell>
                 <TableCell align="right">{createdAt}</TableCell>
                 <TableCell align="left">{author.displayName}</TableCell>
                 <TableCell align="right">
                     <IconContainer>
-                        <OpenInNewIcon onClick={() => navigate(`song/${song.id}`)} />
+                        <OpenInNewIcon onClick={() => navigate(`/songbook/song/${song.id}`)} />
                     </IconContainer>
                     {isUserLogged && <FavIcon song={song} id={id} />}
                 </TableCell>

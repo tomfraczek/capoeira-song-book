@@ -94,8 +94,8 @@ export const addSongToDb = async objectToAdd => {
     try {
         const newSongRef = doc(collection(db, 'songs'));
 
-        objectToAdd = {...objectToAdd, id: newSongRef.id}
-     
+        objectToAdd = { ...objectToAdd, id: newSongRef.id };
+
         await setDoc(doc(db, 'songs', newSongRef.id), objectToAdd);
         console.log('Song added to db');
     } catch (error) {
@@ -149,8 +149,6 @@ export const getUsersFromDb = async () => {
 
 export const updateSongDb = async (id, updates) => {
     const songRef = doc(db, 'songs', id);
-    console.log(updates);
-
     await updateDoc(songRef, updates);
 };
 
@@ -162,4 +160,4 @@ export const getUserById = async id => {
     const users = querySnapshot.docs.map(doc => doc.data());
     const user = users.filter(user => user.uid === id);
     return user[0];
-}
+};

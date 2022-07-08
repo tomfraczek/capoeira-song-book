@@ -1,32 +1,35 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import SongCardPreview from '../../../components/SongCardPreview/SongCardPreview';
-import { selectUsersSongs } from '../../../store/songs/songs.selector';
+import { selectSongs } from '../../../store/songs/songs.selector';
+import { selectCurrentUser } from '../../../store/user/user.selector';
 
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
 import { MySongsContainer, NoSongNotification, BoxIcon } from './MySongs.styles';
+import DisplaySongsTable from '../../../components/DisplaySongsTable';
 
 const MySongs = () => {
-    const currentUsersSongs = useSelector(selectUsersSongs);
-    const [usersSongs, setUsersSongs] = useState([]);
+    const currentUser = useSelector(selectCurrentUser);
+    const allSongs = useSelector(selectSongs);
+    const [songs, setSongs] = useState([]);
 
     useEffect(() => {
-        setUsersSongs(currentUsersSongs);
-    }, [currentUsersSongs]);
+        const usersSongs = allSongs.filter(song => song.addedBy === currentUser.uid);
+        setSongs(usersSongs);
+    }, [allSongs, currentUser]);
 
     useEffect(() => {
-        console.log(currentUsersSongs);
-    }, [usersSongs]);
+        console.log(songs);
+    }, [songs]);
 
     return (
         <MySongsContainer>
-            {currentUsersSongs.length ? (
-                currentUsersSongs.map((song, i) => <SongCardPreview song={song} key={i} />)
+            {songs ? (
+                <DisplaySongsTable data={songs} />
             ) : (
                 <NoSongNotification>
-                    <Link to="add-song">
+                    <Link to="/add-song">
                         <AddBoxIcon />
                         <p>Add some new songs to display them here</p>
                     </Link>

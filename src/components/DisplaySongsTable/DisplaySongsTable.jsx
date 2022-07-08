@@ -86,9 +86,6 @@ const DisplaySongsTable = ({ data }) => {
                                 const labelId = `enhanced-table-checkbox-${index}`;
                                 return <DisplaySongRow key={labelId} song={row} />;
                             })}
-
-                        {/* {data.map(song => (
-                            ))} */}
                     </TableBody>
                 </Table>
             </TableContainer>

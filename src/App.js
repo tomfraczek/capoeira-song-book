@@ -47,11 +47,17 @@ const App = () => {
                 };
 
                 dispatchUser();
+            } else {
+                setIsUserLogged(false);
             }
         });
-
+        // setIsUserLogged(false);
         return unsubscribe;
     }, []);
+
+    useEffect(() => {
+        console.log(isUserLogged);
+    }, [isUserLogged]);
 
     return (
         <div className="AppContainer">

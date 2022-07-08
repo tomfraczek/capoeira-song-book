@@ -81,6 +81,10 @@ const AddSong = () => {
         updateUserDb();
     }, []);
 
+    useEffect(() => {
+        console.log(currentUser);
+    }, [currentUser]);
+
     const onSubmit = data => {
         const { title, category, youtube, ...rest } = data;
         const timestamp = Date.now(); // This would be the timestamp you want to format
@@ -93,8 +97,6 @@ const AddSong = () => {
             second: '2-digit',
         }).format(timestamp);
 
-        console.log();
-        const createdAt = new Date();
         const songToAdd = {
             category,
             title,
@@ -102,7 +104,10 @@ const AddSong = () => {
             youtube,
             autoComplete: autoChorus,
             addedBy: userId,
-            rating: 0,
+            rating: {
+                score: 0,
+                votes: 0,
+            },
             lyrics: { ...rest },
         };
         addSongToDb(songToAdd, category);

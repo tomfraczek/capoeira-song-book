@@ -1,6 +1,12 @@
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { selectUsersPlaylists } from '../../store/user/user.selector';
+import { signOutUser } from '../../utils/firebase/firebase.utils';
+import { setCurrentUser } from '../../store/user/user.action';
+
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -23,12 +29,16 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AddIcon from '@mui/icons-material/Add';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import IconButton from '@mui/material/IconButton';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MuiDrawer from '@mui/material/Drawer';
+import MenuIcon from '@mui/icons-material/Menu';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 
-import { selectUsersPlaylists } from '../../store/user/user.selector';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { Paper } from '@mui/material';
+
+import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 
 const drawerWidth = 260;
 
@@ -80,16 +90,64 @@ const DrawerSubmenu = [
     },
 ];
 
+const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: prop => prop !== 'open',
+})(({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+        ...openedMixin(theme),
+        '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+        ...closedMixin(theme),
+        '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+}));
+
+const openedMixin = theme => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+});
+
+const closedMixin = theme => ({
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(${theme.spacing(8)} + 1px)`,
+    },
+});
+
 const ButtonStyle = {
     color: '#416a59',
 };
 
 const UserDrawer = () => {
-    // const playlists = useSelector(selectUsersPlaylists);
+    const theme = useTheme();
+    const dispatch = useDispatch();
+    const [open, setOpen] = useState(true);
 
-    // useEffect(() => {
-    //     console.log(playlists);
-    // }, [playlists]);
+    let navigate = useNavigate();
+
+    const handleDrawerToggle = () => {
+        setOpen(prevState => !prevState);
+    };
+
+    const handleLogOut = () => {
+        signOutUser();
+        dispatch(setCurrentUser(null));
+        navigate('/');
+    };
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -97,25 +155,35 @@ const UserDrawer = () => {
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
+                    position: 'relative',
                     '& .MuiDrawer-paper': {
                         backgroundColor: '#fff',
                         border: 'none',
-                        top: '80px',
                         width: drawerWidth,
                         boxSizing: 'border-box',
-                        position: 'initial',
                         paddingRight: '20px',
+                        position: 'unset',
                     },
                 }}
                 variant="permanent"
                 anchor="left"
+                open={open}
             >
+                {/* <DrawerHeader style={{ minWidth: '42px' }}>
+                    
+                </DrawerHeader> */}
                 <List>
+                    <ListItemButton onClick={handleDrawerToggle} style={{ position: 'relative' }}>
+                        <ListItemIcon style={{ color: '#416a59' }}>
+                            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        </ListItemIcon>
+                        <ListItemText primary="Drawer" style={ButtonStyle} />
+                    </ListItemButton>
                     {DrawerMenu.map(({ name, path, icon, active }, i) => (
                         <Link to={active ? path : '#'} key={i} style={{ cursor: 'not-allowed' }}>
                             <ListItem key={name} disablePadding style={ButtonStyle}>
                                 <ListItemButton disabled={!active}>
-                                    <ListItemIcon>{icon}</ListItemIcon>
+                                    <ListItemIcon style={{ color: '#416a59' }}>{icon}</ListItemIcon>
                                     <ListItemText primary={name} style={ButtonStyle} />
                                 </ListItemButton>
                             </ListItem>
@@ -130,20 +198,20 @@ const UserDrawer = () => {
                         <Link to={path} key={i}>
                             <ListItem key={name} disablePadding>
                                 <ListItemButton>
-                                    <ListItemIcon>{icon}</ListItemIcon>
+                                    <ListItemIcon style={{ color: '#416a59' }}>{icon}</ListItemIcon>
                                     <ListItemText primary={name} style={ButtonStyle} />
                                 </ListItemButton>
                             </ListItem>
                         </Link>
                     ))}
                     <ListItemButton>
-                        <ListItemIcon>
+                        <ListItemIcon style={{ color: '#416a59' }}>
                             <AddIcon />
                         </ListItemIcon>
                         <ListItemText primary="Create new playlist" style={ButtonStyle} />
                     </ListItemButton>
-                    <ListItemButton>
-                        <ListItemIcon>
+                    <ListItemButton onClick={handleLogOut}>
+                        <ListItemIcon style={{ color: '#416a59' }}>
                             <MeetingRoomOutlinedIcon />
                         </ListItemIcon>
                         <ListItemText primary="Logout" style={ButtonStyle} />
