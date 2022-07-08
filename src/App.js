@@ -55,10 +55,6 @@ const App = () => {
         return unsubscribe;
     }, []);
 
-    useEffect(() => {
-        console.log(isUserLogged);
-    }, [isUserLogged]);
-
     return (
         <div className="AppContainer">
             <Navigation />

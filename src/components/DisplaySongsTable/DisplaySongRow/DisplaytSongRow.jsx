@@ -45,11 +45,13 @@ const DisplaySongRow = ({ song }) => {
         };
 
         updateUserDb();
-
         return unsubscribe;
     }, []);
 
     const roundHalf = n => {
+        if (isNaN(n)) {
+            return 0;
+        }
         return (Math.round(n * 2) / 2).toFixed(1);
     };
 
@@ -66,6 +68,7 @@ const DisplaySongRow = ({ song }) => {
                     <CategoryBadge category={category} />
                 </TableCell>
                 <TableCell align="left">
+                    {console.log(song)}
                     <HalfRating readOnly value={roundHalf(song.rating.score / song.rating.votes)} />
                 </TableCell>
                 <TableCell align="right">{createdAt}</TableCell>

@@ -17,6 +17,13 @@ const Songbook = () => {
     const currentUser = useSelector(selectCurrentUser);
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
+    const [checkboxesValues, setCheckboxesValues] = useState([
+        'corrido',
+        'ladainha',
+        'maculele',
+        'quadra',
+        'samba',
+    ]);
 
     const dispatch = useDispatch();
 
@@ -41,11 +48,24 @@ const Songbook = () => {
         }
     }, [query, songs]);
 
+    const typeHandler = e => {
+        const { value } = e.target;
+        if (!checkboxesValues.includes(value)) {
+            setCheckboxesValues([...checkboxesValues, value]);
+        } else {
+            setCheckboxesValues(checkboxesValues.filter(type => type !== value));
+        }
+    };
+
     return (
         <SongbookContainer>
-            <SearchForm onChange={e => setQuery(e.target.value)} />
+            <SearchForm
+                handleSearchInput={e => setQuery(e.target.value)}
+                handleTypes={typeHandler}
+                checkboxesValues={checkboxesValues}
+            />
             <TableContainer>
-                <DisplaySongsTable data={results} />
+                <DisplaySongsTable data={results} types={checkboxesValues} />
             </TableContainer>
         </SongbookContainer>
     );

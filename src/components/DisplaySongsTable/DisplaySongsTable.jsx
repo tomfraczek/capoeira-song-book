@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -18,12 +18,25 @@ import DisplaySongRow from './DisplaySongRow/DisplaytSongRow';
 
 import CustomTableHead from './CustomTableHead';
 
-const DisplaySongsTable = ({ data }) => {
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('createdAt');
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(15);
-    const [selected, setSelected] = React.useState([]);
+const DisplaySongsTable = ({ data, types }) => {
+    const [order, setOrder] = useState('asc');
+    const [orderBy, setOrderBy] = useState('createdAt');
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(15);
+    const [selected, setSelected] = useState([]);
+    const [categories, setCategories] = useState(
+        types || ['corrido', 'ladainha', 'maculele', 'quadra', 'samba'],
+    );
+    const [loading, setLoading] = useState(true);
+    const [filteredData, setData] = useState([]);
+
+    useEffect(() => {
+        if (types) {
+            setData(data.filter(song => types.includes(song.category)));
+        } else {
+            setData(data);
+        }
+    }, [types, data]);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -40,6 +53,10 @@ const DisplaySongsTable = ({ data }) => {
         }
         return 0;
     }
+
+    useEffect(() => {
+        console.log(filteredData);
+    }, [filteredData]);
 
     function getComparator(order, orderBy) {
         return order === 'desc'
@@ -68,9 +85,14 @@ const DisplaySongsTable = ({ data }) => {
         setPage(0);
     };
 
+    const handleData = () => {
+        console.log(types);
+        const foo = data.filter(song => types.includes(song.category));
+        return foo;
+    };
+
     return (
         <>
-            {' '}
             <TableContainer>
                 <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
                     <CustomTableHead
@@ -80,10 +102,11 @@ const DisplaySongsTable = ({ data }) => {
                         rowCount={data.length}
                     />
                     <TableBody>
-                        {stableSort(data, getComparator(order, orderBy))
+                        {stableSort(filteredData, getComparator(order, orderBy))
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row, index) => {
                                 const labelId = `enhanced-table-checkbox-${index}`;
+                                console.log(row);
                                 return <DisplaySongRow key={labelId} song={row} />;
                             })}
                     </TableBody>

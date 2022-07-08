@@ -92,9 +92,6 @@ const AddSong = () => {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
         }).format(timestamp);
 
         const songToAdd = {
@@ -158,7 +155,7 @@ const AddSong = () => {
                                 return (
                                     <RadioContainer as={RadioGroup} {...field}>
                                         <FormControlLabel
-                                            value="corridos"
+                                            value="corrido"
                                             control={<Radio />}
                                             label="Corrido"
                                         />
@@ -174,7 +171,7 @@ const AddSong = () => {
                                         />
                                         <FormControlLabel value="quadra" control={<Radio />} label="Quadra" />
                                         <FormControlLabel
-                                            value="samba de roda"
+                                            value="samba"
                                             control={<Radio />}
                                             label="Samba de Roda"
                                         />

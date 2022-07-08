@@ -24,7 +24,7 @@ const CustomSelectInput = () => {
                     onChange={handleChange}
                     style={{ background: 'white' }}
                 >
-                    <MenuItem value="corridos">Corrido</MenuItem>
+                    <MenuItem value="corrido">Corrido</MenuItem>
                     <MenuItem value="ladainha">Ladainha</MenuItem>
                     <MenuItem value="maculele">Maculele</MenuItem>
                     <MenuItem value="quadras">Quadra</MenuItem>
