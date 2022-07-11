@@ -45,6 +45,7 @@ import {
     ExampleContainer,
     ButtonContainer,
 } from './AddSong.styles';
+import InfoTooltip from '../../components/InfoTooltip/InfoTooltip';
 
 const ButtonPosition = {
     position: 'relative',
@@ -82,7 +83,7 @@ const AddSong = () => {
     }, []);
 
     useEffect(() => {
-        console.log(currentUser);
+        // console.log(currentUser);
     }, [currentUser]);
 
     const onSubmit = data => {
@@ -217,7 +218,12 @@ const AddSong = () => {
                     {autoChorus && (
                         <LyricsContainer>
                             <FormLabel component="legend">Repeatetive Chorus</FormLabel>
-                            <Textarea placeholder="Chorus" {...register(`lyrics-b`)} required />
+                            <Textarea
+                                ref="textarea"
+                                placeholder="Chorus"
+                                {...register(`lyrics-b`)}
+                                required
+                            />
                         </LyricsContainer>
                     )}
 
@@ -255,6 +261,8 @@ const AddSong = () => {
                             }
                             label="Live Preview"
                         />
+                        <InfoTooltip text="Select this option to turn on songs preview" />
+                        {/* <CustomTooltip title="Select this option to turn on/off songs preview" /> */}
                     </CheckboxContainer>
 
                     <TitleContainer>

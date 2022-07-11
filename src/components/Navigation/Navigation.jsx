@@ -15,7 +15,7 @@ const Navigation = () => {
         <>
             <NavigationContainer>
                 <LogoContainer>
-                    <h1>Capoeira Songbook</h1>
+                    <h1>Songbook</h1>
                 </LogoContainer>
             </NavigationContainer>
             <Outlet />

@@ -2,8 +2,22 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser, selectUsersFavSongs } from '../../../store/user/user.selector';
 import { selectUsersSongs, selectSongs } from '../../../store/songs/songs.selector';
+import {
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Radar } from 'react-chartjs-2';
 
-import { DashboardContainer } from './Dashboard.styles';
+import GreetingUser from '../../../components/GreetingUser/GreetingUser';
+
+import { DashboardContainer, RadarContainer } from './Dashboard.styles';
+
+ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 const Dashboard = () => {
     const currentUser = useSelector(selectCurrentUser);
@@ -18,17 +32,40 @@ const Dashboard = () => {
 
     // const getFavorites = allSongs.filter(song => currentUser.myFavSongs.map(fav => fav === song.id));
     const getFavorites = currentUser.myFavSongs.map(fav => allSongs.filter(song => song.id === fav));
-    const getUswersSongs = allSongs.filter(song => song.addedBy === currentUser.uid);
+    const getUsersSongs = allSongs.filter(song => song.addedBy === currentUser.uid);
+
+    const data = {
+        labels: ['Songs', 'Translations', 'Rates', 'Favorites'],
+        datasets: [
+            {
+                label: 'Added:',
+                data: [getUsersSongs.length, 9, 3, getFavorites.length],
+                backgroundColor: '#73a24e',
+                borderColor: '#416a59',
+                borderWidth: 1,
+            },
+        ],
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    };
+
+    console.log(getUsersSongs.length);
 
     return (
         <DashboardContainer>
             {user && (
                 <>
-                    <h1>Bom dia {user.displayName}</h1>
-                    <div>Your Email: {user.email}</div>
-                    <div>There are {allSongs.length} songs in the database!</div>
-                    <div>{`Your songs in the songbook: ${getUswersSongs ? getUswersSongs.length : '0'}`}</div>
-                    <div>{`Favorite songs: ${getFavorites ? getFavorites.length : '0'}`}</div>
+                    <GreetingUser name={user.displayName} />
+                    <div style={{ color: '#416a59' }}>Your rank is Aluno</div>
+                    <RadarContainer>
+                        <p style={{ color: '#416a59' }}>Your stats:</p>
+                        <Radar data={data} />
+                    </RadarContainer>
                 </>
             )}
         </DashboardContainer>
