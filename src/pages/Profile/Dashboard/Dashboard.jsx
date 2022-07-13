@@ -16,6 +16,7 @@ import { Radar } from 'react-chartjs-2';
 import GreetingUser from '../../../components/GreetingUser/GreetingUser';
 
 import { DashboardContainer, RadarContainer } from './Dashboard.styles';
+import TextEditor from '../../../components/TextEditor/TextEditor';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
@@ -54,11 +55,10 @@ const Dashboard = () => {
         },
     };
 
-    console.log(getUsersSongs.length);
-
     return (
         <DashboardContainer>
-            {user && (
+            <TextEditor />
+            {/* {user && (
                 <>
                     <GreetingUser name={user.displayName} />
                     <div style={{ color: '#416a59' }}>Your rank is Aluno</div>
@@ -67,7 +67,7 @@ const Dashboard = () => {
                         <Radar data={data} />
                     </RadarContainer>
                 </>
-            )}
+            )} */}
         </DashboardContainer>
     );
 };
