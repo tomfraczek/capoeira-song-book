@@ -7,24 +7,23 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
-const FormInput = ({ label, value, ...props }) => {
+const FormInput = ({ label, value, id, ...props }) => {
     return (
         <Box
-            component="form"
             sx={{
                 '& > :not(style)': { m: 1 },
             }}
-            noValidate
-            autoComplete="off"
         >
             <FormControl
                 sx={{
                     width: '500px',
                 }}
                 variant="standard"
+                
+                
             >
-                <InputLabel htmlFor="component-simple">{label}</InputLabel>
-                <Input id="component-simple" value={value} {...props} />
+                <InputLabel htmlFor={id}>{label}</InputLabel>
+                <Input id={id} value={value} {...props} />
             </FormControl>
         </Box>
     );
