@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     signInWithGooglePopup,
+    signInWithFacebookPopup,
     createUserDocumentFromAuth,
     signInUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils';
@@ -10,8 +11,10 @@ import FormInput from '../FormInput/FormInput';
 import CustomButton, { BUTTON_TYPE_CLASSES } from '../CustomButton/CustomButton';
 
 import GoogleBtn from './assets/google_default.png';
+import FbBtn from './assets/fb_default.png'
 
-import { GoogleLogInButton, LoginButtonsContainer } from './SignInForm.styles';
+import { GoogleFbLogInButton, LoginButtonsContainer } from './SignInForm.styles';
+import { height } from '@mui/system';
 
 const defaultFieldValues = {
     email: '',
@@ -59,6 +62,17 @@ const SignInForm = () => {
         await signInWithGooglePopup();
     };
 
+    const signInWithFacebook = async () => {
+        console.log("signed in fb")
+        try {
+            await signInWithFacebookPopup();
+            resetFormFields();
+            navigate('/dashboard');
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <FormInput
@@ -84,9 +98,12 @@ const SignInForm = () => {
                 <CustomButton buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
                     Log In
                 </CustomButton>
-                <GoogleLogInButton type="button" onClick={signInWithGoogle}>
+                <GoogleFbLogInButton type="button" onClick={signInWithGoogle}>
                     <img src={GoogleBtn} />
-                </GoogleLogInButton>
+                </GoogleFbLogInButton>
+                <GoogleFbLogInButton type="button" onClick={signInWithFacebook}>
+                    <img style={{maxHeight: "3rem"}} src={FbBtn} />
+                </GoogleFbLogInButton>
             </LoginButtonsContainer>
         </form>
     );
