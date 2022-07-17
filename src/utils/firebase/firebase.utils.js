@@ -37,17 +37,27 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-const googleProvider = new GoogleAuthProvider();
+export const auth = getAuth(firebaseApp);
+export const db = getFirestore(firebaseApp);
 
+export const currentUser = auth.currentUser;
+
+//sign in with google
+
+const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
     prompt: 'select_account',
 });
 
-export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
-export const currentUser = auth.currentUser;
+export const signInWithGooglePopup = async () => {
+    const res = await signInWithPopup(auth, googleProvider);
+    const { displayName } = res.user;
+    console.log(displayName)
+    createUserDocumentFromAuth(res.user, { displayName })
+};
 
-export const db = getFirestore();
+
+
 
 // export methods
 export const createUserDocumentFromAuth = async (userAuth, aditionalInformation = {}) => {
