@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -54,11 +55,11 @@ const SignUpForm = () => {
     };
 
     return (
-        <>
-            <h1>Signup with your email and password</h1>
-            <form onSubmit={handleSubmit}>
+        <Container>
+            <h1>Sign up with your email and password</h1>
+            <form onSubmit={handleSubmit} noValidate autoComplete="off">
                 <FormInput
-                    placeholder="Email"
+                    label="Email"
                     type="email"
                     required
                     onChange={handleChange}
@@ -66,7 +67,7 @@ const SignUpForm = () => {
                     value={email}
                 />
                 <FormInput
-                    placeholder="Password"
+                    label="Password"
                     type="password"
                     required
                     onChange={handleChange}
@@ -74,7 +75,7 @@ const SignUpForm = () => {
                     value={password}
                 />
                 <FormInput
-                    placeholder="Confirm Password"
+                    label="Confirm Password"
                     type="password"
                     required
                     onChange={handleChange}
@@ -83,7 +84,7 @@ const SignUpForm = () => {
                 />
                 <button type="submit">Sign Up</button>
             </form>
-        </>
+        </Container>
     );
 };
 
