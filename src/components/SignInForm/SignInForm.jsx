@@ -13,8 +13,9 @@ import CustomButton, { BUTTON_TYPE_CLASSES } from '../CustomButton/CustomButton'
 import GoogleBtn from './assets/google_default.png';
 import FbBtn from './assets/fb_default.png'
 
-import { GoogleFbLogInButton, LoginButtonsContainer } from './SignInForm.styles';
+import { GoogleFbLogInButton, LoginButtonsContainer, GoogleLogInButton } from './SignInForm.styles';
 import { height } from '@mui/system';
+import { Container } from '@mui/material';
 
 const defaultFieldValues = {
     email: '',
@@ -32,6 +33,8 @@ const SignInForm = () => {
 
     const handleSubmit = async event => {
         event.preventDefault();
+        if (!email) alert('write down email');
+        if (!password) alert('write down password');
 
         try {
             const { user } = await signInUserWithEmailAndPassword(email, password);
@@ -39,11 +42,14 @@ const SignInForm = () => {
             navigate('/dashboard');
         } catch (error) {
             switch (error.code) {
-                case 'auth/wrong-password':
-                    alert('incoret password for email');
+                case 'auth/invalid-email':
+                    alert('incorrect email');
                     break;
                 case 'auth/user-not-found':
-                    alert('incoret password for email');
+                    alert('user not found');
+                    break;
+                case 'auth/wrong-password':
+                    alert('wrong password');
                     break;
                 default:
                     console.log(error);
@@ -74,10 +80,13 @@ const SignInForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <Container>
+        <h1>Sign In</h1>
+        <form onSubmit={handleSubmit} noValidate autoComplete="off">
             <FormInput
-                placeholder="Email"
-                autoComplete="false"
+                id="log-in-email"
+                label="Email"
+                autoComplete="off"
                 type="email"
                 required
                 onChange={handleChange}
@@ -85,8 +94,9 @@ const SignInForm = () => {
                 value={email}
             />
             <FormInput
-                placeholder="Password"
-                autoComplete="false"
+                id="log-in-password"
+                label="Password"
+                autoComplete="off"
                 type="password"
                 required
                 onChange={handleChange}
@@ -106,6 +116,7 @@ const SignInForm = () => {
                 </GoogleFbLogInButton>
             </LoginButtonsContainer>
         </form>
+        </Container>
     );
 };
 
