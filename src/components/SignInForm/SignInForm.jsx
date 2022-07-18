@@ -65,7 +65,13 @@ const SignInForm = () => {
     };
 
     const signInWithGoogle = async () => {
-        await signInWithGooglePopup();
+        try {
+            await signInWithGooglePopup();
+            resetFormFields();
+            navigate('/dashboard');
+        } catch (error) {
+            alert(error.message)
+        }
     };
 
     const signInWithFacebook = async () => {
