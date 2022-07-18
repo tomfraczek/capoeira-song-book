@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const GoogleLogInButton = styled.button`
+export const GoogleFbLogInButton = styled.button`
     background: none;
     border: none;
     padding: 0;
-
+    
     &:hover {
         cursor: pointer;
     }

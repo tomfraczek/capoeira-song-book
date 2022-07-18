@@ -3,6 +3,7 @@ import {
     getAuth,
     signInWithPopup,
     GoogleAuthProvider,
+    FacebookAuthProvider,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
@@ -48,6 +49,15 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 export const currentUser = auth.currentUser;
 
 export const db = getFirestore();
+
+//sign in with facebook
+const facebookProvider = new FacebookAuthProvider();
+export const signInWithFacebookPopup = async () => {
+    const res = await signInWithPopup(auth, facebookProvider);
+    const { displayName } = res.user;
+    console.log(displayName)
+    createUserDocumentFromAuth(res.user, { displayName })
+};
 
 // export methods
 export const createUserDocumentFromAuth = async (userAuth, aditionalInformation = {}) => {
