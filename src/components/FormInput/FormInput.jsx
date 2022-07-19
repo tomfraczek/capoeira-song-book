@@ -7,7 +7,30 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
-const FormInput = ({ label, value, id, ...props }) => {
+// const FormInput = ({ label, value, id, ...props }) => {
+//     return (
+//         <Box
+//             sx={{
+//                 '& > :not(style)': { m: 1 },
+//             }}
+//         >
+//             <FormControl
+//                 sx={{
+//                     width: '500px',
+//                 }}
+//                 variant="standard"
+
+//             >
+//                 <InputLabel htmlFor={id}>{label}</InputLabel>
+//                 <Input id={id} value={value} {...props} />
+//             </FormControl>
+//         </Box>
+//     );
+// };
+
+// export default FormInput;
+
+const FormInput = ({ id, label, register, required, minLength, ...props }) => {
     return (
         <Box
             sx={{
@@ -16,14 +39,22 @@ const FormInput = ({ label, value, id, ...props }) => {
         >
             <FormControl
                 sx={{
-                    width: '500px',
+                    width: '100%',
                 }}
                 variant="standard"
-                
-                
             >
                 <InputLabel htmlFor={id}>{label}</InputLabel>
-                <Input id={id} value={value} {...props} />
+                <Input
+                    id={id}
+                    {...register(label, {
+                        required,
+                        minLength: {
+                            value: minLength,
+                            message: `${label} must be at least ${minLength} characters long`,
+                        },
+                    })}
+                    {...props}
+                />
             </FormControl>
         </Box>
     );

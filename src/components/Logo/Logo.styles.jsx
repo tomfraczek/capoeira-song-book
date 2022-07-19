@@ -4,7 +4,7 @@ export const LogoContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     @media screen and (min-width: 800px) {
         flex-direction: row;
         margin-bottom: 0;  
@@ -20,6 +20,7 @@ export const LogoContainer = styled.div`
     h1 {
         color: #416a59;
         text-align: center;
+        font-size: 1.5rem;
         @media screen and (min-width: 800px) {
             text-align: left;
         }

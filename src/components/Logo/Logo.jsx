@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import LogoPng from '../../assets/logo-trans.png';
+import LogoPng from './assets/logo-trans.png';
 import { LogoContainer } from './Logo.styles';
 
 const Logo = () => {

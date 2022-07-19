@@ -4,11 +4,11 @@ export const BaseButton = styled.button`
     padding: 11px 45px;
     color: #fff;
     background-color: #416a59;
-    text-transform: uppercase;
     border: 0;
     font-size: 1rem;
     margin-top: auto;
-
+    border-radius: 6px;
+    font-family: inherit;
     a {
         color: #fff;
     }
@@ -48,11 +48,12 @@ export const OutlinedButton = styled(BaseButton)`
     text-transform: none;
     border: 1px solid #416a59;
     border-radius: 6px;
-
+    padding: 8px 24px;
     &:hover {
         color: white;
         background-color: #416a59;
     }
 `;
 
-export const ButtonContainer = styled.div``;
+export const ButtonContainer = styled.div`
+`;
