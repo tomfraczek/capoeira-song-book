@@ -56,7 +56,7 @@ const SignUpForm = () => {
 
     return (
         <Container>
-            <h1>Sign up with your email and password</h1>
+            <h1>Your Best Work Starts Here</h1>
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
                 <FormInput
                     label="Email"

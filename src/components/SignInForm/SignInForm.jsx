@@ -87,7 +87,7 @@ const SignInForm = () => {
 
     return (
         <Container>
-        <h1>Sign In</h1>
+        <h1>Log In to Songbook</h1>
         <form onSubmit={handleSubmit} noValidate autoComplete="off">
             <FormInput
                 id="log-in-email"

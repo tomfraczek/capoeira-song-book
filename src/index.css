@@ -1,5 +1,7 @@
 html {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 *,
@@ -9,12 +11,10 @@ html {
 }
 
 body {
-    margin: 0 0 50px 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
         'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #e9e2c5;
 }
 
 code {
@@ -22,9 +22,9 @@ code {
 }
 
 .AppContainer {
+    width: 90%;
     max-width: 1280px;
-    margin: auto;
-    margin-top: 30px;
+    margin: 0 auto;
 }
 
 a {

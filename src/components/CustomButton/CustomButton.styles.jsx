@@ -6,8 +6,7 @@ export const BaseButton = styled.button`
     background-color: #416a59;
     text-transform: uppercase;
     border: 0;
-    font-size: 16px;
-    width: 100%;
+    font-size: 1rem;
     margin-top: auto;
 
     a {
@@ -40,6 +39,19 @@ export const TransparentButton = styled(BaseButton)`
         color: #416a59;
         // border: 1px solid #416a59;
         background-color: transparent;
+    }
+`;
+
+export const OutlinedButton = styled(BaseButton)`
+    background-color: transparent;
+    color: #416a59;
+    text-transform: none;
+    border: 1px solid #416a59;
+    border-radius: 6px;
+
+    &:hover {
+        color: white;
+        background-color: #416a59;
     }
 `;
 

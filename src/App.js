@@ -9,7 +9,6 @@ import {
 } from './utils/firebase/firebase.utils';
 import { setCurrentUser } from './store/user/user.action';
 
-import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import Authentication from './pages/Authentication';
 import Songbook from './pages/Songbook/Songbook'; //WTF?! :O -.-'
@@ -23,6 +22,8 @@ import MySongs from './pages/Profile/MySongs';
 import Notifications from './pages/Profile/Notifications';
 import EditProfile from './pages/Profile/EditProfile';
 import NewSong from './pages/Profile/NewSong';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 const App = () => {
     const [isUserLogged, setIsUserLogged] = useState(false);
@@ -57,32 +58,32 @@ const App = () => {
 
     return (
         <div className="AppContainer">
-            <Navigation />
-            <div style={{ display: 'flex' }}>
-                {isUserLogged ? (
-                    <>
-                        <UserDrawer />
-                        <Routes>
-                            <Route index element={<Dashboard />} />
-                            <Route path="dashboard" element={<Dashboard />} />
-                            <Route path="favorites" element={<MyFavorites />} />
-                            <Route path="my-songs" element={<MySongs />} />
-                            <Route path="notifications" element={<Notifications />} />
-                            <Route path="edit-profile" element={<EditProfile />} />
-                            <Route path="new-song" element={<NewSong />} />
-                            <Route path="songbook" element={<Songbook />} />
-                            <Route path="auth" element={<Authentication />} />
-                            <Route path="add-song" element={<AddSong />} />
-                            <Route path="profile/*" element={<Profile />} />
-                            <Route path="songbook/song/:id" element={<Song />} />
-                        </Routes>
-                    </>
-                ) : (
+            {isUserLogged ? (
+                <>
+                    <UserDrawer />
                     <Routes>
-                        <Route index element={<Authentication />} />
+                        
+                        <Route index element={<Dashboard />} />
+                        <Route path="dashboard" element={<Dashboard />} />
+                        <Route path="favorites" element={<MyFavorites />} />
+                        <Route path="my-songs" element={<MySongs />} />
+                        <Route path="notifications" element={<Notifications />} />
+                        <Route path="edit-profile" element={<EditProfile />} />
+                        <Route path="new-song" element={<NewSong />} />
+                        <Route path="songbook" element={<Songbook />} />
+                        <Route path="auth" element={<Authentication />} />
+                        <Route path="add-song" element={<AddSong />} />
+                        <Route path="profile/*" element={<Profile />} />
+                        <Route path="songbook/song/:id" element={<Song />} />
                     </Routes>
-                )}
-            </div>
+                </>
+            ) : (
+                <Routes>
+                    <Route index element={<SignIn />} />
+                    <Route path="/sign-in" element={<SignIn />} />
+                    <Route path="/sign-up" element={<SignUp />} />
+                </Routes>
+            )}
         </div>
     );
 };
