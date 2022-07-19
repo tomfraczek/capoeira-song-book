@@ -59,7 +59,7 @@ const App = () => {
     return (
         <div className="AppContainer">
             {isUserLogged ? (
-                <>
+                <div style={{ display: 'flex' }}>
                     <UserDrawer />
                     <Routes>
                         
@@ -76,7 +76,7 @@ const App = () => {
                         <Route path="profile/*" element={<Profile />} />
                         <Route path="songbook/song/:id" element={<Song />} />
                     </Routes>
-                </>
+                </div>
             ) : (
                 <Routes>
                     <Route index element={<SignIn />} />

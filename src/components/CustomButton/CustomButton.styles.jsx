@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const BaseButton = styled.button`
     padding: 11px 45px;
     color: #fff;
+    text-transform: capitalize;
     background-color: #416a59;
     border: 0;
     font-size: 1rem;
@@ -45,15 +46,11 @@ export const TransparentButton = styled(BaseButton)`
 export const OutlinedButton = styled(BaseButton)`
     background-color: transparent;
     color: #416a59;
-    text-transform: none;
     border: 1px solid #416a59;
     border-radius: 6px;
-    padding: 8px 24px;
+    padding: 9px 24px;
     &:hover {
         color: white;
         background-color: #416a59;
     }
-`;
-
-export const ButtonContainer = styled.div`
 `;

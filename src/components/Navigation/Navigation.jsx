@@ -31,10 +31,9 @@ const Navigation = ({ NavType }) => {
                             <span style={{marginRight: "1rem"}}>New to Songbook?</span>
                             <CustomButton
                                 buttonType={BUTTON_TYPE_CLASSES.outlined}
+                                children="Create an account"
                                 onClick={() => navigate('../sign-up', { replace: true })}
-                            >
-                                Create an account
-                            </CustomButton>
+                            />        
                         </>
                     )}
                     {NavType === 'SignUpForm' && (
@@ -42,10 +41,9 @@ const Navigation = ({ NavType }) => {
                             <span style={{marginRight: "1rem"}}>Already have an Account?</span>
                             <CustomButton
                                 buttonType={BUTTON_TYPE_CLASSES.outlined}
+                                children="Sign in"
                                 onClick={() => navigate('../sign-in', { replace: true })}
-                            >
-                                Sign In
-                            </CustomButton>
+                            />
                         </>
                     )}
                 </NavigationLinks>

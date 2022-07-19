@@ -1,44 +1,46 @@
-import { Container } from '@mui/material';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useForm } from 'react-hook-form';
 import {
     createAuthUserWithEmailAndPassword,
     createUserDocumentFromAuth,
     updateUserProfile,
 } from '../../utils/firebase/firebase.utils';
 import FormInput from '../FormInput/FormInput';
-
-const defaultFieldValues = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-};
+import CustomButton, { BUTTON_TYPE_CLASSES } from '../CustomButton/CustomButton';
+import { FormContainer, ButtonsContainer } from '../SignInForm/SignInForm.styles';
+import AuthProviderButton from '../AuthProviderButton/AuthProviderButton';
+import { Divider } from '@mui/material';
 
 const SignUpForm = () => {
-    const [formFields, setFormFields] = useState(defaultFieldValues);
-    const { displayName, email, password, confirmPassword } = formFields;
     let navigate = useNavigate();
 
-    const resetFormFields = () => {
-        setFormFields(defaultFieldValues);
-    };
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            displayName: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+        },
+    });
 
-    const handleSubmit = async event => {
-        event.preventDefault();
+    const onSubmit = async data => {
+        console.log(data);
 
-        if (password !== confirmPassword) {
+        if (data.password !== data.confirmPassword) {
             alert('password do not match');
             return;
         }
 
         try {
-            const { user } = await createAuthUserWithEmailAndPassword(email, password);
+            const { user } = await createAuthUserWithEmailAndPassword(data.email, data.password);
+            const displayName = data.displayName;
 
             await createUserDocumentFromAuth(user, { displayName });
 
-            resetFormFields();
             navigate('/profile/edit-profile');
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
@@ -48,43 +50,61 @@ const SignUpForm = () => {
         }
     };
 
-    const handleChange = event => {
-        const { name, value } = event.target;
-
-        setFormFields({ ...formFields, [name]: value });
-    };
-
+   
     return (
-        <Container>
+        <FormContainer>
             <h1>Your Best Work Starts Here</h1>
-            <form onSubmit={handleSubmit} noValidate autoComplete="off">
+            <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
                 <FormInput
-                    label="Email"
-                    type="email"
+                    id="username"
+                    label="displayName"
+                    // placeholder="Username"
+                    register={register}
                     required
-                    onChange={handleChange}
-                    name="email"
-                    value={email}
+                    minLength={1}
                 />
+                <p>{errors.username?.message}</p>
                 <FormInput
-                    label="Password"
-                    type="password"
+                    id="sign-in-email"
+                    label="email"
+                    // placeholder="Email Address"
+                    register={register}
                     required
-                    onChange={handleChange}
-                    name="password"
-                    value={password}
+                    minLength={6}
                 />
+                <p>{errors.email?.message}</p>
                 <FormInput
-                    label="Confirm Password"
-                    type="password"
+                    id="sign-in-password"
+                    register={register}
+                    label="password"
+                    // placeholder="Your password"
                     required
-                    onChange={handleChange}
-                    name="confirmPassword"
-                    value={confirmPassword}
+                    minLength={6}
                 />
-                <button type="submit">Sign Up</button>
+                <p>{errors.password?.message}</p>
+                <FormInput
+                    id="confirm-password"
+                    register={register}
+                    label="confirmPassword"
+                    // placeholder="Your password"
+                    required
+                    minLength={6}
+                />
+                <p>{errors.confirmPassword?.message}</p>
+
+                <ButtonsContainer>
+                    <CustomButton
+                        style={{ width: '100%' }}
+                        buttonType={BUTTON_TYPE_CLASSES.base}
+                        children="Sign up"
+                        type="submit"
+                    />
+                    <Divider variant="fullWidth" sx={{ margin: '1.5rem 0' }} />
+                    <AuthProviderButton btnType="google" />
+                    <AuthProviderButton btnType="facebook" />
+                </ButtonsContainer>
             </form>
-        </Container>
+        </FormContainer>
     );
 };
 

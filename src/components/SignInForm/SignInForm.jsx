@@ -1,19 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import {
-    signInWithGooglePopup,
-    signInWithFacebookPopup,
     signInUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase.utils';
 
 import FormInput from '../FormInput/FormInput';
 import CustomButton, { BUTTON_TYPE_CLASSES } from '../CustomButton/CustomButton';
 
-import GoogleIcon from '@mui/icons-material/Google';
-import FacebookIcon from '@mui/icons-material/Facebook';
-
-import { FormContainer, GoogleFbLogInButton, LoginButtonsContainer, LineDecor } from './SignInForm.styles';
-
+import {
+    FormContainer,
+    ButtonsContainer,
+} from './SignInForm.styles';
+import AuthProviderButton from '../AuthProviderButton/AuthProviderButton';
+import { Divider } from '@mui/material';
 
 const SignInForm = () => {
     let navigate = useNavigate();
@@ -52,37 +51,15 @@ const SignInForm = () => {
         }
     };
 
-    const signInWithGoogle = async () => {
-        try {
-            await signInWithGooglePopup();
-            navigate('/dashboard');
-        } catch (error) {
-            alert(error.message);
-        }
-    };
-
-    const signInWithFacebook = async () => {
-        console.log('signed in fb');
-        try {
-            await signInWithFacebookPopup();
-            navigate('/dashboard');
-        } catch (error) {
-            alert(error.message);
-        }
-    };
-
     return (
         <FormContainer>
             <h1>Log In to Songbook</h1>
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-            >
+            <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
                 <FormInput
                     id="log-in-email"
                     label="email"
-                    register={register}
-                    autoComplete="off"
-                    
+                    // placeholder="Email Address"
+                    register={register} 
                     required
                     minLength={6}
                 />
@@ -91,28 +68,23 @@ const SignInForm = () => {
                     id="log-in-password"
                     register={register}
                     label="password"
-                    autoComplete="off"
+                    // placeholder="Your password"
                     required
                     minLength={6}
                 />
                 <p>{errors.password?.message}</p>
 
-                <LoginButtonsContainer>
-                    <CustomButton style={{width: "100%"}} buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
-                        Log In
-                    </CustomButton>
-                    <LineDecor/>
-                    <GoogleFbLogInButton style={{backgroundColor: "#DB4437"}} type="button" onClick={signInWithGoogle}>
-                       
-                        <GoogleIcon fontSize="large" sx={{ color: "white", marginRight: "1rem" }}/>
-                        <span style={{color: "#fff"}}>Sign In with Google</span>
-                    </GoogleFbLogInButton>
-                    <GoogleFbLogInButton style={{backgroundColor: "	#4267B2"}} type="button" onClick={signInWithFacebook}>
-                 
-                        <FacebookIcon fontSize="large" sx={{ color: "white", marginRight: "1rem" }}/>
-                        <span style={{color: "#fff"}}>Sign In with Facebook</span>
-                    </GoogleFbLogInButton>
-                </LoginButtonsContainer>
+                <ButtonsContainer>
+                    <CustomButton
+                        style={{ width: '100%' }}
+                        buttonType={BUTTON_TYPE_CLASSES.base}
+                        children="Log in"
+                        type="submit"
+                    />
+                    <Divider variant='fullWidth' sx={{margin: '1.5rem 0'}}/>
+                    <AuthProviderButton btnType="google" />
+                    <AuthProviderButton btnType="facebook" />
+                </ButtonsContainer>
             </form>
         </FormContainer>
     );

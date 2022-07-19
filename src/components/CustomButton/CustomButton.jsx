@@ -1,4 +1,4 @@
-import { BaseButton, LightButton, ButtonContainer, TransparentButton, OutlinedButton } from './CustomButton.styles';
+import { BaseButton, LightButton, TransparentButton, OutlinedButton } from './CustomButton.styles';
 
 export const BUTTON_TYPE_CLASSES = {
     base: 'base',
@@ -18,9 +18,7 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
 const CustomButton = ({ children, buttonType, ...otherProps }) => {
     const CustomButton = getButton(buttonType);
     return (
-        <ButtonContainer>
             <CustomButton {...otherProps}>{children}</CustomButton>
-        </ButtonContainer>
     );
 };
 
