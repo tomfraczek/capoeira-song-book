@@ -8,59 +8,24 @@ import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
-// const FormInput = ({ label, value, id, ...props }) => {
-//     return (
-//         <Box
-//             sx={{
-//                 '& > :not(style)': { m: 1 },
-//             }}
-//         >
-//             <FormControl
-//                 sx={{
-//                     width: '500px',
-//                 }}
-//                 variant="standard"
-
-//             >
-//                 <InputLabel htmlFor={id}>{label}</InputLabel>
-//                 <Input id={id} value={value} {...props} />
-//             </FormControl>
-//         </Box>
-//     );
-// };
-
-// export default FormInput;
-
-
-const FormInput = ({ id, label, register, required, minLength, ...props }) => {
+const FormInput = ({ label, value, id, ...props }) => {
     return (
-        // <Box
-        //     sx={{
-        //         '& > :not(style)': { m: 1, margin: 0 },
-        //     }}
-        // >
+        <Box
+            sx={{
+                '& > :not(style)': { m: 1 },
+            }}
+        >
             <FormControl
                 sx={{
-                    width: '100%',
+                    width: '500px',
                 }}
-                variant="outlined"
+                variant="standard"
+
             >
-                <InputLabel sx={{textTransform: 'capitalize'}} htmlFor={id}>{label}</InputLabel>
-                <Input
-                
-        
-                    id={id}
-                    {...register(label, {
-                        required,
-                        minLength: {
-                            value: minLength,
-                            message: `${label} must be at least ${minLength} characters long`,
-                        },
-                    })}
-                    {...props}
-                />
+                <InputLabel htmlFor={id}>{label}</InputLabel>
+                <Input id={id} value={value} {...props} />
             </FormControl>
-        // </Box>
+        </Box>
     );
 };
 
