@@ -64,17 +64,17 @@ const App = () => {
                         <UserDrawer />
                         <Routes>
                             <Route index element={<Dashboard />} />
-                            <Route path="capoeira-songbook/dashboard" element={<Dashboard />} />
-                            <Route path="capoeira-songbook/favorites" element={<MyFavorites />} />
-                            <Route path="capoeira-songbook/my-songs" element={<MySongs />} />
-                            <Route path="capoeira-songbook/notifications" element={<Notifications />} />
-                            <Route path="capoeira-songbook/edit-profile" element={<EditProfile />} />
-                            <Route path="capoeira-songbook/new-song" element={<NewSong />} />
-                            <Route path="capoeira-songbook/songbook" element={<Songbook />} />
-                            <Route path="capoeira-songbook/auth" element={<Authentication />} />
-                            <Route path="capoeira-songbook/add-song" element={<AddSong />} />
-                            <Route path="capoeira-songbook/profile/*" element={<Profile />} />
-                            <Route path="capoeira-songbook/songbook/song/:id" element={<Song />} />
+                            <Route path="dashboard" element={<Dashboard />} />
+                            <Route path="favorites" element={<MyFavorites />} />
+                            <Route path="my-songs" element={<MySongs />} />
+                            <Route path="notifications" element={<Notifications />} />
+                            <Route path="edit-profile" element={<EditProfile />} />
+                            <Route path="new-song" element={<NewSong />} />
+                            <Route path="songbook" element={<Songbook />} />
+                            <Route path="auth" element={<Authentication />} />
+                            <Route path="add-song" element={<AddSong />} />
+                            <Route path="profile/*" element={<Profile />} />
+                            <Route path="songbook/song/:id" element={<Song />} />
                         </Routes>
                     </>
                 ) : (
