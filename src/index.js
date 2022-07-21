@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store/store';
 
@@ -14,9 +14,9 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <BrowserRouter>
+                <HashRouter>
                     <App />
-                </BrowserRouter>
+                </HashRouter>
             </PersistGate>
         </Provider>
     </React.StrictMode>,
