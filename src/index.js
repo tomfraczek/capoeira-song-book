@@ -9,13 +9,18 @@ import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store/store';
 
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <BrowserRouter>
-                    <App />
+                    <ThemeProvider theme={theme}>
+                        <App />
+                    </ThemeProvider>
                 </BrowserRouter>
             </PersistGate>
         </Provider>

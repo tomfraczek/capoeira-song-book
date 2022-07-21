@@ -3,18 +3,18 @@ import { useForm } from 'react-hook-form';
 import {
     createAuthUserWithEmailAndPassword,
     createUserDocumentFromAuth,
-    updateUserProfile,
 } from '../../utils/firebase/firebase.utils';
+
 import CustomInput from '../CustomInput/CustomInput';
 import CustomButton, { BUTTON_TYPE_CLASSES } from '../CustomButton/CustomButton';
-import { FormContainer, ButtonsContainer } from '../SignInForm/SignInForm.styles';
 import AuthProviderButton from '../AuthProviderButton/AuthProviderButton';
-import { Divider } from '@mui/material';
+
+import { Divider, FormLabel, Stack, Container } from '@mui/material';
 
 const SignUpForm = () => {
     let navigate = useNavigate();
 
-    const { handleSubmit, reset, control } = useForm({
+    const { handleSubmit, reset, control, setValue } = useForm({
         defaultValues: {
             displayName: '',
             email: '',
@@ -27,7 +27,7 @@ const SignUpForm = () => {
         console.log(data);
 
         if (data.password1 !== data.password2) {
-            alert('password do not match');
+            alert('passwords do not match');
             return;
         }
 
@@ -48,30 +48,61 @@ const SignUpForm = () => {
     };
 
     return (
-        <FormContainer>
-            <h1>Your Best Work Starts Here</h1>
+        <Container maxWidth="xs" disableGutters>
+            <h1 style={{ textAlign: 'center' }}>Your Best Work Starts Here</h1>
             <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
-                <label>How should we call you?</label>
-                <CustomInput minLength={2} name="displayName" control={control} label="Name" />
-                <label>Email</label>
-                <CustomInput minLength={6} name="email" control={control} label="Email Address" />
-                <label>Password</label>
-                <CustomInput minLength={6} name="password1" control={control} label="Create Password" />
-                <CustomInput minLength={6} name="password2" control={control} label="Confirm Password" />
+                <Stack spacing={2}>
+                    <FormLabel sx={{ color: 'black' }}>How should we call you?</FormLabel>
+                    <CustomInput minLength={2} name="displayName" control={control} label="Name" required />
+                    <FormLabel sx={{ color: 'black' }}>Email</FormLabel>
+                    <CustomInput
+                        minLength={6}
+                        name="email"
+                        control={control}
+                        label="Email Address"
+                        required
+                    />
+                    <FormLabel sx={{ color: 'black' }}>Password</FormLabel>
+                    <CustomInput
+                        minLength={6}
+                        name="password1"
+                        control={control}
+                        label="Create Password"
+                        description="password"
+                        required
+                    />
+                    <CustomInput
+                        minLength={6}
+                        name="password2"
+                        control={control}
+                        label="Confirm Password"
+                        description="password"
+                        required
+                    />
+                     <CustomInput
+                        name="checkbox"
+                        control={control}
+                        label="I have read and agree to the Terms of Service"
+                        description="checkbox"
+                        required
+                    />
 
-                <ButtonsContainer>
                     <CustomButton
-                        style={{ width: '100%' }}
+                        style={{ marginTop: '2rem' }}
                         buttonType={BUTTON_TYPE_CLASSES.base}
                         children="Sign up"
                         type="submit"
                     />
-                    <Divider variant="fullWidth" sx={{ margin: '1.5rem 0' }} />
+
+                </Stack>
+
+                <Divider variant="fullWidth" sx={{ margin: '2rem 0' }} />
+                <Stack spacing={2}>
                     <AuthProviderButton btnType="google" />
                     <AuthProviderButton btnType="facebook" />
-                </ButtonsContainer>
+                </Stack>
             </form>
-        </FormContainer>
+        </Container>
     );
 };
 

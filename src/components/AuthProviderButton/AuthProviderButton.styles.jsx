@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
-export const AuthProviderBtn = styled.div`
+export const AuthProviderBtn = styled.button`
     background-color:  ${props => (props.btnType === 'google' ? '#DB4437' : '#4267B2')};
+    font-family: inherit;
+    font-size: 1rem;
     color: white;
     border: none;
     border-radius: 6px;
