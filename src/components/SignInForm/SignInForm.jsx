@@ -1,45 +1,29 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-    signInWithGooglePopup,
-    signInWithFacebookPopup,
-    createUserDocumentFromAuth,
-    signInUserWithEmailAndPassword,
-} from '../../utils/firebase/firebase.utils';
+import { useForm } from 'react-hook-form';
+import { signInUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
 
-import FormInput from '../FormInput/FormInput';
+import CustomInput from '../CustomInput/CustomInput';
 import CustomButton, { BUTTON_TYPE_CLASSES } from '../CustomButton/CustomButton';
+import AuthProviderButton from '../AuthProviderButton/AuthProviderButton';
 
-import GoogleBtn from './assets/google_default.png';
-import FbBtn from './assets/fb_default.png'
-
-import { GoogleFbLogInButton, LoginButtonsContainer, GoogleLogInButton } from './SignInForm.styles';
-import { height } from '@mui/system';
-import { Container } from '@mui/material';
-
-const defaultFieldValues = {
-    email: '',
-    password: '',
-};
+import { Divider, Stack, FormLabel, Container } from '@mui/material';
 
 const SignInForm = () => {
-    const [formFields, setFormFields] = useState(defaultFieldValues);
-    const { email, password } = formFields;
     let navigate = useNavigate();
+    const { handleSubmit, reset, control } = useForm({
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+    });
 
-    const resetFormFields = () => {
-        setFormFields(defaultFieldValues);
-    };
-
-    const handleSubmit = async event => {
-        event.preventDefault();
-        if (!email) alert('write down email');
-        if (!password) alert('write down password');
+    const onSubmit = async data => {
+        console.log(data);
 
         try {
-            const { user } = await signInUserWithEmailAndPassword(email, password);
-            resetFormFields();
+            const { user } = await signInUserWithEmailAndPassword(data.email, data.password);
             navigate('/dashboard');
+            reset();
         } catch (error) {
             switch (error.code) {
                 case 'auth/invalid-email':
@@ -58,70 +42,36 @@ const SignInForm = () => {
         }
     };
 
-    const handleChange = event => {
-        const { name, value } = event.target;
-
-        setFormFields({ ...formFields, [name]: value });
-    };
-
-    const signInWithGoogle = async () => {
-        try {
-            await signInWithGooglePopup();
-            resetFormFields();
-            navigate('/dashboard');
-        } catch (error) {
-            alert(error.message)
-        }
-    };
-
-    const signInWithFacebook = async () => {
-        console.log("signed in fb")
-        try {
-            await signInWithFacebookPopup();
-            resetFormFields();
-            navigate('/dashboard');
-        } catch (error) {
-            alert(error.message)
-        }
-    }
-
     return (
-        <Container>
-        <h1>Sign In</h1>
-        <form onSubmit={handleSubmit} noValidate autoComplete="off">
-            <FormInput
-                id="log-in-email"
-                label="Email"
-                autoComplete="off"
-                type="email"
-                required
-                onChange={handleChange}
-                name="email"
-                value={email}
-            />
-            <FormInput
-                id="log-in-password"
-                label="Password"
-                autoComplete="off"
-                type="password"
-                required
-                onChange={handleChange}
-                name="password"
-                value={password}
-            />
+        <Container maxWidth="xs" disableGutters>
+            <h1 style={{ textAlign: 'center' }}>Log In to Songbook</h1>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
+                <Stack spacing={2}>
+                    <FormLabel sx={{ color: 'black' }}>Email</FormLabel>
+                    <CustomInput
+                        minLength={6}
+                        name="email"
+                        control={control}
+                        label="Email Address"
+                        required
+                    />
 
-            <LoginButtonsContainer>
-                <CustomButton buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
-                    Log In
-                </CustomButton>
-                <GoogleFbLogInButton type="button" onClick={signInWithGoogle}>
-                    <img src={GoogleBtn} />
-                </GoogleFbLogInButton>
-                <GoogleFbLogInButton type="button" onClick={signInWithFacebook}>
-                    <img style={{maxHeight: "3rem"}} src={FbBtn} />
-                </GoogleFbLogInButton>
-            </LoginButtonsContainer>
-        </form>
+                    <FormLabel sx={{ color: 'black' }}>Password </FormLabel>
+                    <CustomInput minLength={6} name="password" control={control} label="Password" required description='password'/>
+
+                    <CustomButton
+                        style={{ marginTop: '2rem' }}
+                        buttonType={BUTTON_TYPE_CLASSES.base}
+                        children="Log in"
+                        type="submit"
+                    />
+                </Stack>
+                <Divider variant="fullWidth" sx={{ margin: '2rem 0' }} />
+                <Stack spacing={2}>
+                    <AuthProviderButton btnType="google" />
+                    <AuthProviderButton btnType="facebook" />
+                </Stack>
+            </form>
         </Container>
     );
 };
