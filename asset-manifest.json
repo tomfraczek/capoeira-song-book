@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/capoeira-song-book/static/css/main.2425ff31.css",
-    "main.js": "/capoeira-song-book/static/js/main.729b0966.js",
+    "main.css": "/capoeira-song-book/static/css/main.12b8e980.css",
+    "main.js": "/capoeira-song-book/static/js/main.8fb70602.js",
     "static/js/787.2863e344.chunk.js": "/capoeira-song-book/static/js/787.2863e344.chunk.js",
+    "static/media/logo-trans.png": "/capoeira-song-book/static/media/logo-trans.c84b3e4b634d2e5e5e57.png",
     "index.html": "/capoeira-song-book/index.html",
-    "main.2425ff31.css.map": "/capoeira-song-book/static/css/main.2425ff31.css.map",
-    "main.729b0966.js.map": "/capoeira-song-book/static/js/main.729b0966.js.map",
+    "main.12b8e980.css.map": "/capoeira-song-book/static/css/main.12b8e980.css.map",
+    "main.8fb70602.js.map": "/capoeira-song-book/static/js/main.8fb70602.js.map",
     "787.2863e344.chunk.js.map": "/capoeira-song-book/static/js/787.2863e344.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2425ff31.css",
-    "static/js/main.729b0966.js"
+    "static/css/main.12b8e980.css",
+    "static/js/main.8fb70602.js"
   ]
 }
