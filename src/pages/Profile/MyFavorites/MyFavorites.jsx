@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import DisplaySongsTable from '../../../components/DisplaySongsTable';
 import SongCardPreview from '../../../components/SongCardPreview';
 import { selectSongs } from '../../../store/songs/songs.selector';
-import { selectCurrentUser } from '../../../store/user/user.selector';
+import { selectCurrentUser, selectUsersFavSongs } from '../../../store/user/user.selector';
 
 import { NoSongNotification, MyFavoritesContainer } from './MyFavorites.styles';
 
@@ -14,9 +14,15 @@ const MyFavorites = () => {
     const [usersFavSongs, setUsersFavSongs] = useState([]);
     const currentUser = useSelector(selectCurrentUser);
     const songs = useSelector(selectSongs);
-    // const favSongs = useSelector(selectUsersFavSongs);
+    const favSongs = useSelector(selectUsersFavSongs);
     const [user, setUser] = useState(null);
     const [fav, setFav] = useState([]);
+
+    useEffect(() => {
+        if (favSongs) {
+            console.log(songs.filter(song => favSongs.includes(song.id)));
+        }
+    }, [songs, favSongs]);
 
     useEffect(() => {
         setUser(currentUser);

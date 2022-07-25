@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../../store/user/user.selector';
+import { selectCurrentUser, selectUsersFavSongs } from '../../../store/user/user.selector';
 import { selectUsersSongs, selectSongs } from '../../../store/songs/songs.selector';
 import {
     Chart as ChartJS,
@@ -23,41 +23,41 @@ ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, 
 const Dashboard = () => {
     const currentUser = useSelector(selectCurrentUser);
     const currentUsersSongs = useSelector(selectUsersSongs);
-    // const favSongs = useSelector(selectUsersFavSongs);
+    const favSongs = useSelector(selectUsersFavSongs);
     const allSongs = useSelector(selectSongs);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
         setUser(currentUser);
-    }, [currentUsersSongs, currentUser]);
+    }, [currentUsersSongs, currentUser, favSongs]);
 
     // const getFavorites = allSongs.filter(song => currentUser.myFavSongs.map(fav => fav === song.id));
-    // const getFavorites = currentUser.myFavSongs.map(fav => allSongs.filter(song => song.id === fav));
-    // const getUsersSongs = allSongs.filter(song => song.addedBy === currentUser.uid);
+    const getFavorites = currentUser.myFavSongs.map(fav => allSongs.filter(song => song.id === fav));
+    const getUsersSongs = allSongs.filter(song => song.addedBy === currentUser.uid);
 
-    // const data = {
-    //     labels: ['Songs', 'Translations', 'Rates', 'Favorites'],
-    //     datasets: [
-    //         {
-    //             label: 'Added:',
-    //             data: [getUsersSongs.length, 9, 3, getFavorites.length],
-    //             backgroundColor: '#73a24e',
-    //             borderColor: '#416a59',
-    //             borderWidth: 1,
-    //         },
-    //     ],
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true,
-    //             },
-    //         },
-    //     },
-    // };
+    const data = {
+        labels: ['Songs', 'Translations', 'Rates', 'Favorites'],
+        datasets: [
+            {
+                label: 'Added:',
+                data: [getUsersSongs.length, 9, 3, getFavorites.length],
+                backgroundColor: '#73a24e',
+                borderColor: '#416a59',
+                borderWidth: 1,
+            },
+        ],
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    };
 
     return (
         <DashboardContainer>
-            {/* <TextEditor /> */}
+            <TextEditor />
             {/* {user && (
                 <>
                     <GreetingUser name={user.displayName} />
