@@ -71,7 +71,7 @@ const App = () => {
                         <Route path="edit-profile" element={<EditProfile />} />
                         <Route path="new-song" element={<NewSong />} />
                         <Route path="songbook" element={<Songbook />} />
-                        <Route path="auth" element={<Authentication />} />
+                        {/* <Route path="auth" element={<Authentication />} /> */}
                         <Route path="add-song" element={<AddSong />} />
                         <Route path="profile/*" element={<Profile />} />
                         <Route path="songbook/song/:id" element={<Song />} />

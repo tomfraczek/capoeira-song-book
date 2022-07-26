@@ -3,40 +3,21 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DisplaySongsTable from '../../../components/DisplaySongsTable';
 import SongCardPreview from '../../../components/SongCardPreview';
-import { selectSongs } from '../../../store/songs/songs.selector';
-import { selectCurrentUser } from '../../../store/user/user.selector';
+import { selectCurrentUserFavs } from '../../../store/user/user.selector';
 
 import { NoSongNotification, MyFavoritesContainer } from './MyFavorites.styles';
 
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
 const MyFavorites = () => {
-    const [usersFavSongs, setUsersFavSongs] = useState([]);
-    const currentUser = useSelector(selectCurrentUser);
-    const songs = useSelector(selectSongs);
-    // const favSongs = useSelector(selectUsersFavSongs);
-    const [user, setUser] = useState(null);
-    const [fav, setFav] = useState([]);
+    const currentUserFavs = useSelector(selectCurrentUserFavs);
 
-    useEffect(() => {
-        setUser(currentUser);
-    }, [currentUser]);
-
-    useEffect(() => {
-        if (user) {
-            const favSongs = songs.filter(song => user.myFavSongs.includes(song.id));
-            setFav(favSongs);
-        }
-    }, [user]);
-
-    useEffect(() => {
-        console.log(fav);
-    }, [fav]);
+    console.log(currentUserFavs)
 
     return (
         <MyFavoritesContainer>
-            {fav.length ? (
-                <DisplaySongsTable data={fav} />
+            {currentUserFavs.length ? (
+                <DisplaySongsTable data={currentUserFavs} />
             ) : (
                 <NoSongNotification>
                     <Link to="/songbook">
