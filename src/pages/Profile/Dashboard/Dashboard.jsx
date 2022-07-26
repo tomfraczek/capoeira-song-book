@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser, selectCurrentUserFavs } from '../../../store/user/user.selector';
 import { selectUsersSongs, selectSongs } from '../../../store/songs/songs.selector';
+
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -11,14 +12,16 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import { Line } from "react-chartjs-2";
 import { Radar } from 'react-chartjs-2';
 
 import GreetingUser from '../../../components/GreetingUser/GreetingUser';
 
 import { DashboardContainer, RadarContainer } from './Dashboard.styles';
 import TextEditor from '../../../components/TextEditor/TextEditor';
-// import { setDatasets } from 'react-chartjs-2/dist/utils';
+
+
+
+
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
@@ -28,6 +31,8 @@ const Dashboard = () => {
     const currentUserFavs = useSelector(selectCurrentUserFavs);
     const allSongs = useSelector(selectSongs);
     // const [data, setData] = useState({});
+
+   
 
     // useEffect(() => {
     //     const data = {
@@ -51,6 +56,8 @@ const Dashboard = () => {
     //     };
     //     setData(data);
     // }, [currentUserFavs, currentUsersSongs]);
+
+  
 
     console.log(currentUsersSongs);
     console.log(currentUserFavs)

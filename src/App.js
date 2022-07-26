@@ -48,6 +48,7 @@ const App = () => {
                 };
 
                 dispatchUser();
+                
             } else {
                 setIsUserLogged(false);
             }

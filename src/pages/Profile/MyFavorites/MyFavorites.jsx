@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DisplaySongsTable from '../../../components/DisplaySongsTable';
 import SongCardPreview from '../../../components/SongCardPreview';
@@ -8,25 +8,42 @@ import { selectCurrentUserFavs } from '../../../store/user/user.selector';
 import { NoSongNotification, MyFavoritesContainer } from './MyFavorites.styles';
 
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { selectLoading } from '../../../store/songs/songs.selector';
+import LoadingCircle from '../../../components/LoadingCircle/LoadingCircle';
+import { fetchSongsAsync } from '../../../store/songs/songs.action';
+
+
 
 const MyFavorites = () => {
     const currentUserFavs = useSelector(selectCurrentUserFavs);
+    const isLoading = useSelector(selectLoading);
+    const dispatch = useDispatch();
 
-    console.log(currentUserFavs)
+    useEffect(() => {
+        dispatch(fetchSongsAsync());
+    }, []);
+
+    console.log(currentUserFavs);
 
     return (
-        <MyFavoritesContainer>
-            {currentUserFavs.length ? (
-                <DisplaySongsTable data={currentUserFavs} />
+        <>
+            {isLoading ? (
+                <LoadingCircle />
             ) : (
-                <NoSongNotification>
-                    <Link to="/songbook">
-                        <AddBoxIcon />
-                        <p>You have no favorite songs. Add some to display them here.</p>
-                    </Link>
-                </NoSongNotification>
+                <MyFavoritesContainer>
+                    {currentUserFavs && currentUserFavs.length > 0 ? (
+                        <DisplaySongsTable data={currentUserFavs} />
+                    ) : (
+                        <NoSongNotification>
+                            <Link to="/songbook">
+                                <AddBoxIcon />
+                                <p>You have no favorite songs. Add some to display them here.</p>
+                            </Link>
+                        </NoSongNotification>
+                    )}
+                </MyFavoritesContainer>
             )}
-        </MyFavoritesContainer>
+        </>
     );
 };
 
