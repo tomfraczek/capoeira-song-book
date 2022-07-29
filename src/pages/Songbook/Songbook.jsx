@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { selectSongs } from '../../store/songs/songs.selector';
 import { selectLoading } from '../../store/songs/songs.selector';
-import { fetchSongsAsync } from '../../store/songs/songs.action';
 
 import SearchForm from '../../components/SearchForm/SearchForm';
 import DisplaySongsTable from '../../components/DisplaySongsTable';
@@ -24,12 +23,6 @@ const Songbook = () => {
         'quadra',
         'samba',
     ]);
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchSongsAsync());
-    }, []);
 
     useEffect(() => {
         console.log(isLoading);

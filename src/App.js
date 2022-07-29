@@ -24,6 +24,7 @@ import EditProfile from './pages/Profile/EditProfile';
 import NewSong from './pages/Profile/NewSong';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import { fetchSongsAsync, resetSongs } from './store/songs/songs.action';
 
 const App = () => {
     const [isUserLogged, setIsUserLogged] = useState(false);
@@ -48,7 +49,6 @@ const App = () => {
                 };
 
                 dispatchUser();
-                
             } else {
                 setIsUserLogged(false);
             }
@@ -57,13 +57,20 @@ const App = () => {
         return unsubscribe;
     }, []);
 
+    useEffect(() => {
+        if (isUserLogged) {
+            dispatch(fetchSongsAsync());
+        } else {
+            dispatch(resetSongs());
+        }
+    }, [isUserLogged]);
+
     return (
         <div className="AppContainer">
             {isUserLogged ? (
                 <div style={{ display: 'flex' }}>
                     <UserDrawer />
                     <Routes>
-                        
                         <Route index element={<Dashboard />} />
                         <Route path="dashboard" element={<Dashboard />} />
                         <Route path="favorites" element={<MyFavorites />} />

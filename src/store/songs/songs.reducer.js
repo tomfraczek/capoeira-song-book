@@ -29,6 +29,8 @@ export const songsReducer = (state = SONGS_INITIAL_STATE, action = {}) => {
                     return song;
                 }),
             };
+        case SONGS_ACTION_TYPES.RESET_SONGS:
+            return {...state, isLoading: false, data: []};
         default:
             return state;
     }
