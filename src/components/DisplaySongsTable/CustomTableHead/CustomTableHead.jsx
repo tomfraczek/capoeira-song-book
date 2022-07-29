@@ -70,7 +70,6 @@ const CustomTableHead = props => {
     return (
         <TableHead>
             <TableRow>
-                <TableCell />
                 {headCells.map(headCell => (
                     <TableCell
                         key={headCell.id}
