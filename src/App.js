@@ -24,6 +24,7 @@ import EditProfile from './pages/Profile/EditProfile';
 import NewSong from './pages/Profile/NewSong';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Navigation from './components/Navigation';
 
 const App = () => {
     const [isUserLogged, setIsUserLogged] = useState(false);
@@ -60,7 +61,9 @@ const App = () => {
     return (
         <div className="AppContainer">
             {isUserLogged ? (
-                <div style={{ display: 'flex' }}>
+                <>
+                <Navigation navType='profile'/>
+                 <div style={{ display: 'flex' }}>
                     <UserDrawer />
                     <Routes>
                         
@@ -78,6 +81,8 @@ const App = () => {
                         <Route path="songbook/song/:id" element={<Song />} />
                     </Routes>
                 </div>
+                </>
+               
             ) : (
                 <Routes>
                     <Route index element={<SignIn />} />

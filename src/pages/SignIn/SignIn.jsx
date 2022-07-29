@@ -5,7 +5,7 @@ import SignInForm from '../../components/SignInForm'
 const SignIn = () => {
   return (
     <>
-        <Navigation NavType="SignInForm"/>
+        <Navigation navType="signInForm"/>
         <SignInForm/>
     </>
   )

@@ -5,7 +5,7 @@ import SignUpForm from '../../components/SignUpForm'
 const SignUp = () => {
   return (
     <>
-        <Navigation NavType="SignUpForm"/>
+        <Navigation navType="signUpForm"/>
         <SignUpForm/>
     </>
   )
