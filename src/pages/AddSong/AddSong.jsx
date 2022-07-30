@@ -73,11 +73,12 @@ const AddSong = () => {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            category: [],
+            category: "",
+            tags: []
         },
     });
 
-    const categoryOptions = [
+    const tagOptions = [
         { value: 'corrido', label: 'Corrido' },
         { value: 'ladainha', label: 'Ladainha' },
         { value: 'maculele', label: 'Maculele' },
@@ -97,7 +98,7 @@ const AddSong = () => {
     }, [currentUser]);
 
     const onSubmit = data => {
-        const { title, category, youtube, ...rest } = data;
+        const { title, category, tags, youtube, ...rest } = data;
         const timestamp = Date.now(); // This would be the timestamp you want to format
         const timestampFormat = new Intl.DateTimeFormat('en-US', {
             year: 'numeric',
@@ -106,7 +107,8 @@ const AddSong = () => {
         }).format(timestamp);
 
         const songToAdd = {
-            category: category.map(tag => tag.value),
+            category, 
+            tags: tags.map(tag => tag.value),
             title,
             createdAt: timestampFormat,
             youtube,
@@ -151,7 +153,7 @@ const AddSong = () => {
         textInputs.map(input => unregister(`${input}-b`));
     };
 
-    console.log(watch('category'));
+    console.log(watch('tags'));
 
     return (
         <>
@@ -161,7 +163,7 @@ const AddSong = () => {
 
                     <Stack>
                         <Controller
-                            name="category"
+                            name="tags"
                             control={control}
                             rules={{
                                 required: true,
@@ -172,8 +174,8 @@ const AddSong = () => {
                                     onChange={(e, data) => onChange(data)}
                                     value={value}
                                     multiple
-                                    id="category"
-                                    options={categoryOptions}
+                                    id="tags"
+                                    options={tagOptions}
                                     getOptionLabel={option => option.label}
                                     isOptionEqualToValue={(option, value) => option.value === value.value}
                                     defaultValue={[]}
@@ -181,8 +183,8 @@ const AddSong = () => {
                                     renderInput={params => (
                                         <TextField
                                             {...params}
-                                            label="Choose category tags"
-                                            placeholder="Category tags"
+                                            label="Choose tags"
+                                            placeholder="Tags"
                                             error={!!error}
                                         />
                                     )}
