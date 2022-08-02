@@ -31,7 +31,7 @@ const DisplaySongRow = ({ song }) => {
     const [author, setAuthor] = useState({});
     const [isUserLogged, setIsUserLogged] = useState(false);
     const navigate = useNavigate();
-    const { title, id, addedBy, createdAt, category } = song;
+    const { title, id, addedBy, createdAt, category, tags } = song;
 
     useEffect(() => {
         const unsubscribe = onAuthStateChangedListener(user => {
@@ -65,7 +65,8 @@ const DisplaySongRow = ({ song }) => {
                 </TableCell>
                 <TableCell align="left">{title}</TableCell>
                 <TableCell align="left">
-                    <CategoryBadge category={category} />
+                    {/* <CategoryBadge category={category} /> */}
+                    <CategoryBadge tags={tags} />
                 </TableCell>
                 <TableCell align="left">
                     <HalfRating readOnly value={roundHalf(song.rating.score / song.rating.votes)} />

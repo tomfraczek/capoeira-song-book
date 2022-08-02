@@ -32,11 +32,15 @@ const DisplaySongsTable = ({ data, types }) => {
 
     useEffect(() => {
         if (types) {
-            setData(data.filter(song => types.includes(song.category)));
+            // setData(data.filter(song => types.includes(song.category)));
+            console.log(types)
+            setData(data.filter(song => song.tags?.some(tag => types.includes(tag))));
         } else {
             setData(data);
         }
     }, [types, data]);
+
+
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -88,6 +92,7 @@ const DisplaySongsTable = ({ data, types }) => {
         return foo;
     };
 
+    console.log(filteredData)
     return (
         <>
             <TableContainer>
@@ -96,7 +101,7 @@ const DisplaySongsTable = ({ data, types }) => {
                         order={order}
                         orderBy={orderBy}
                         onRequestSort={handleRequestSort}
-                        rowCount={data.length}
+                        rowCount={data.length}          
                     />
                     <TableBody>
                         {stableSort(filteredData, getComparator(order, orderBy))
@@ -111,7 +116,8 @@ const DisplaySongsTable = ({ data, types }) => {
             <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                count={data.length}
+                // count={data.length}
+                count={filteredData.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

@@ -83,6 +83,7 @@ const AddSong = () => {
         { value: 'ladainha', label: 'Ladainha' },
         { value: 'maculele', label: 'Maculele' },
         { value: 'samba', label: 'Samba de Roda' },
+        { value: 'quadras', label: 'Quadras' }
     ];
 
     useEffect(() => {
