@@ -23,17 +23,16 @@ const DisplaySongsTable = ({ data, types }) => {
     const [orderBy, setOrderBy] = useState('createdAt');
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(15);
-    const [selected, setSelected] = useState([]);
-    const [categories, setCategories] = useState(
-        types || ['corrido', 'ladainha', 'maculele', 'quadra', 'samba'],
-    );
-    const [loading, setLoading] = useState(true);
+    // const [selected, setSelected] = useState([]);
+    // const [categories, setCategories] = useState(
+    //     types || ['corrido', 'ladainha', 'maculele', 'quadra', 'samba'],
+    // );
+    // const [loading, setLoading] = useState(true);
     const [filteredData, setData] = useState([]);
 
     useEffect(() => {
         if (types) {
             // setData(data.filter(song => types.includes(song.category)));
-            console.log(types)
             setData(data.filter(song => song.tags?.some(tag => types.includes(tag))));
         } else {
             setData(data);
@@ -87,10 +86,10 @@ const DisplaySongsTable = ({ data, types }) => {
         setPage(0);
     };
 
-    const handleData = () => {
-        const foo = data.filter(song => types.includes(song.category));
-        return foo;
-    };
+    // const handleData = () => {
+    //     const foo = data.filter(song => types.includes(song.category));
+    //     return foo;
+    // };
 
     console.log(filteredData)
     return (
@@ -116,7 +115,6 @@ const DisplaySongsTable = ({ data, types }) => {
             <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                // count={data.length}
                 count={filteredData.length}
                 rowsPerPage={rowsPerPage}
                 page={page}

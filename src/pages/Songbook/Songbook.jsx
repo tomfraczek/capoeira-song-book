@@ -61,8 +61,6 @@ const Songbook = () => {
         }
     };
     
-    const tags = ['corrido', 'ladainha', 'maculele', 'samba', 'quadras'];
-console.log(results)
     return (
         <SongbookContainer>
             <SearchForm
@@ -74,9 +72,7 @@ console.log(results)
                 {isLoading ? (
                     <LoadingCircle />
                 ) : (
-                    // <DisplaySongsTable data={results} types={checkboxesValues} />
-                    // <DisplaySongsTable data={results} types={['ladainha']} />
-                    <DisplaySongsTable data={results} types={null} />
+                    <DisplaySongsTable data={results} types={checkboxesValues} />
                 )}
             </TableContainer>
         </SongbookContainer>
