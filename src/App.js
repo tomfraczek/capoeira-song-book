@@ -25,6 +25,7 @@ import NewSong from './pages/Profile/NewSong';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import { fetchSongsAsync, resetSongs } from './store/songs/songs.action';
+import Navigation from './components/Navigation';
 
 const App = () => {
     const [isUserLogged, setIsUserLogged] = useState(false);
@@ -68,7 +69,9 @@ const App = () => {
     return (
         <div className="AppContainer">
             {isUserLogged ? (
-                <div style={{ display: 'flex' }}>
+                <>
+                <Navigation navType='profile'/>
+                 <div style={{ display: 'flex' }}>
                     <UserDrawer />
                     <Routes>
                         <Route index element={<Dashboard />} />
@@ -85,6 +88,8 @@ const App = () => {
                         <Route path="songbook/song/:id" element={<Song />} />
                     </Routes>
                 </div>
+                </>
+               
             ) : (
                 <Routes>
                     <Route index element={<SignIn />} />
