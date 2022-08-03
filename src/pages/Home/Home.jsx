@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CustomModal from '../../components/CustomModal';
 import SignInForm from '../../components/SignInForm';
 import SignUpForm from '../../components/SignUpForm';
+import Navigation from '../../components/Navigation';
 import CustomButton, { BUTTON_TYPE_CLASSES } from '../../components/CustomButton/CustomButton';
 
 import { HomeContainer, CtaContainer, IntroductionContainer } from './Home.styles';
@@ -13,7 +14,12 @@ const Home = () => {
     const handleClose = () => setOpen(false);
     console.log('dupa');
 
-    return <HomeContainer>asdasd</HomeContainer>;
+    return (
+        <>
+        <Navigation navType='home'/>
+        <HomeContainer>asdasd</HomeContainer>
+        </>
+    );
 };
 
 export default Home;

@@ -12,7 +12,7 @@ import { NavigationContainer, NavigationLinks } from './Navigation.styles';
 import Logo from '../Logo';
 import { Typography } from '@mui/material';
 
-const Navigation = ({ NavType }) => {
+const Navigation = ({ navType }) => {
     const currentUser = useSelector(selectCurrentUser);
     const navigate = useNavigate();
 
@@ -21,24 +21,25 @@ const Navigation = ({ NavType }) => {
             <NavigationContainer>
                 <Logo />
                 <NavigationLinks>
-                    {NavType === 'Home' && (
+                    {navType === 'home' && (
                         <>
                             <span>Home Nav Links Here</span>
                         </>
                     )}
-                    {NavType === 'SignInForm' && (
+                    {navType === 'profile' && <>{/* <span>User Nav Links Here</span> */}</>}
+                    {navType === 'signInForm' && (
                         <>
-                            <span style={{marginRight: "1rem"}}>New to Songbook?</span>
+                            <span style={{ marginRight: '1rem' }}>New to Songbook?</span>
                             <CustomButton
                                 buttonType={BUTTON_TYPE_CLASSES.outlined}
                                 children="Create an account"
                                 onClick={() => navigate('../sign-up', { replace: true })}
-                            />        
+                            />
                         </>
                     )}
-                    {NavType === 'SignUpForm' && (
+                    {navType === 'signUpForm' && (
                         <>
-                            <span style={{marginRight: "1rem"}}>Already have an Account?</span>
+                            <span style={{ marginRight: '1rem' }}>Already have an Account?</span>
                             <CustomButton
                                 buttonType={BUTTON_TYPE_CLASSES.outlined}
                                 children="Sign in"
