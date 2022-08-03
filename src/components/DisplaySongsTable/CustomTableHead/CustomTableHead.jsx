@@ -36,10 +36,10 @@ const CustomTableHead = props => {
             label: 'Title',
         },
         {
-            id: 'category',
+            id: 'tags',
             numeric: false,
             disablePadding: false,
-            label: 'Category',
+            label: 'Tags',
         },
         {
             id: 'rating',

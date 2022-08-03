@@ -53,7 +53,7 @@ const Songbook = () => {
             setCheckboxesValues(checkboxesValues.filter(type => type !== value));
         }
     };
-
+    
     return (
         <SongbookContainer>
             <SearchForm

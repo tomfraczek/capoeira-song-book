@@ -11,6 +11,9 @@ import {
     RadioGroup,
     Radio,
     Tooltip,
+    Stack,
+    Autocomplete,
+    TextField,
 } from '@mui/material';
 
 import {
@@ -70,9 +73,18 @@ const AddSong = () => {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            category: '',
+            category: "",
+            tags: []
         },
     });
+
+    const tagOptions = [
+        { value: 'corrido', label: 'Corrido' },
+        { value: 'ladainha', label: 'Ladainha' },
+        { value: 'maculele', label: 'Maculele' },
+        { value: 'samba', label: 'Samba de Roda' },
+        { value: 'quadras', label: 'Quadras' }
+    ];
 
     useEffect(() => {
         const updateUserDb = onAuthStateChangedListener(user => {
@@ -87,7 +99,7 @@ const AddSong = () => {
     }, [currentUser]);
 
     const onSubmit = data => {
-        const { title, category, youtube, ...rest } = data;
+        const { title, category, tags, youtube, ...rest } = data;
         const timestamp = Date.now(); // This would be the timestamp you want to format
         const timestampFormat = new Intl.DateTimeFormat('en-US', {
             year: 'numeric',
@@ -96,7 +108,8 @@ const AddSong = () => {
         }).format(timestamp);
 
         const songToAdd = {
-            category,
+            category, 
+            tags: tags.map(tag => tag.value),
             title,
             createdAt: timestampFormat,
             youtube,
@@ -108,7 +121,7 @@ const AddSong = () => {
             },
             lyrics: { ...rest },
         };
-        addSongToDb(songToAdd, category);
+        addSongToDb(songToAdd);
         reset();
     };
 
@@ -141,46 +154,45 @@ const AddSong = () => {
         textInputs.map(input => unregister(`${input}-b`));
     };
 
+    console.log(watch('tags'));
+
     return (
         <>
             {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
             <AddSongContainer>
                 <AddSongForm onSubmit={handleSubmit(onSubmit)}>
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend">Type:</FormLabel>
+
+                    <Stack>
                         <Controller
-                            rules={{ required: true }}
+                            name="tags"
                             control={control}
-                            name="category"
-                            render={({ field }) => {
-                                return (
-                                    <RadioContainer as={RadioGroup} {...field}>
-                                        <FormControlLabel
-                                            value="corrido"
-                                            control={<Radio />}
-                                            label="Corrido"
-                                        />
-                                        <FormControlLabel
-                                            value="ladainha"
-                                            control={<Radio />}
-                                            label="Ladainha"
-                                        />
-                                        <FormControlLabel
-                                            value="maculele"
-                                            control={<Radio />}
-                                            label="Maculele"
-                                        />
-                                        <FormControlLabel value="quadra" control={<Radio />} label="Quadra" />
-                                        <FormControlLabel
-                                            value="samba"
-                                            control={<Radio />}
-                                            label="Samba de Roda"
-                                        />
-                                    </RadioContainer>
-                                );
+                            rules={{
+                                required: true,
+                                message: 'Choose tags',
                             }}
+                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                <Autocomplete
+                                    onChange={(e, data) => onChange(data)}
+                                    value={value}
+                                    multiple
+                                    id="tags"
+                                    options={tagOptions}
+                                    getOptionLabel={option => option.label}
+                                    isOptionEqualToValue={(option, value) => option.value === value.value}
+                                    defaultValue={[]}
+                                    filterSelectedOptions
+                                    renderInput={params => (
+                                        <TextField
+                                            {...params}
+                                            label="Choose tags"
+                                            placeholder="Tags"
+                                            error={!!error}
+                                        />
+                                    )}
+                                />
+                            )}
                         />
-                    </FormControl>
+                    </Stack>
 
                     {/* register your input into the hook by invoking the "register" function */}
                     <TitleContainer>
