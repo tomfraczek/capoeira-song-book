@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const NavigationContainer = styled.div`
     background-color: #fff;
     padding: 2rem 0;
+    margin-bottom: 25px;
     @media screen and (min-width: 800px) {
         padding: 0;
         display: flex;
