@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DisplaySongsTable from '../../../components/DisplaySongsTable';
 import SongCardPreview from '../../../components/SongCardPreview';
@@ -10,18 +9,12 @@ import { NoSongNotification, MyFavoritesContainer } from './MyFavorites.styles';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { selectLoading } from '../../../store/songs/songs.selector';
 import LoadingCircle from '../../../components/LoadingCircle/LoadingCircle';
-import { fetchSongsAsync } from '../../../store/songs/songs.action';
 
 
 
 const MyFavorites = () => {
     const currentUserFavs = useSelector(selectCurrentUserFavs);
     const isLoading = useSelector(selectLoading);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchSongsAsync());
-    }, []);
 
     console.log(currentUserFavs);
 

@@ -31,3 +31,7 @@ export const fetchSongsAsync = () => {
 export const setSongUpdates = updates => {
     return createAction(SONGS_ACTION_TYPES.UPDATE_SONG, updates);
 };
+
+export const resetSongs = () => {
+    return createAction(SONGS_ACTION_TYPES.RESET_SONGS);
+};
